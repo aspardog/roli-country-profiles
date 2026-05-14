@@ -18,6 +18,7 @@ import {
   COLORS,
   FONTS,
 } from '../config';
+import StatsCard from './StatsCard.jsx';
 
 function SubfactorBar({ label, value, color }) {
   const pct = value != null ? Math.max(0, Math.min(1, value)) : 0;
@@ -142,7 +143,7 @@ function CountryProfileChart({ profile, title, year }) {
         padding: '32px 36px 40px',
       }}
     >
-      <header style={{ marginBottom: 32 }}>
+      <header style={{ marginBottom: 20 }}>
         <h2
           style={{
             fontFamily: FONTS.display,
@@ -169,6 +170,8 @@ function CountryProfileChart({ profile, title, year }) {
           ROLI {year}
         </div>
       </header>
+
+      <StatsCard profile={profile} year={year} />
 
       <div
         style={{

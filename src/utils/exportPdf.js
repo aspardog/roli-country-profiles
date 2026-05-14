@@ -34,7 +34,7 @@ export async function exportCountriesPdf(entries, { filename, year, onProgress }
   const { default: jsPDF } = await import('jspdf');
   const { svg2pdf } = await import('svg2pdf.js');
 
-  const { width, height } = getSvgDimensions();
+  const { width, height } = getSvgDimensions(true);
 
   // jsPDF expects dimensions in its declared unit; we use points (pt).
   // Convert our SVG pixel dimensions to points at 72 dpi-equivalent: keep

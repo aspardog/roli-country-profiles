@@ -16,7 +16,7 @@ export function useRoliData() {
     let cancelled = false;
     async function load() {
       try {
-        const res = await fetch(DATA_URL, { credentials: 'omit', cache: 'force-cache' });
+        const res = await fetch(DATA_URL, { credentials: 'omit', cache: 'no-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         if (!cancelled) setState({ status: 'ready', data: json, error: null });

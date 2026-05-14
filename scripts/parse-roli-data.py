@@ -20,8 +20,22 @@ How it adapts to new releases:
    patterns). The script does *not* rely on hardcoded row indices, so
    small layout changes (extra blank rows, reordering) don't break it.
 
+4. **Derived stats** (optional): pass `--prev-input` with the previous year's
+   Excel (or historical data file) to embed global/regional/income ranks and
+   year-over-year score changes in each country record. These fields power
+   the stats card in the UI.
+
 Run:
     python3 scripts/parse-roli-data.py
+
+    # With year-over-year stats:
+    python3 scripts/parse-roli-data.py \\
+        --prev-input path/to/FINAL_2024_historical_data.xlsx
+
+    # Augment an already-parsed JSON without re-parsing the source Excel:
+    python3 scripts/parse-roli-data.py \\
+        --base-json public/data/roli.json \\
+        --prev-input path/to/FINAL_2024_historical_data.xlsx
 
 Requirements:
     pip install pandas openpyxl
@@ -32,6 +46,7 @@ import argparse
 import json
 import re
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 try:
@@ -171,6 +186,97 @@ def parse_sheet(xlsx_path: Path, sheet_name: str) -> tuple[list[dict], dict[str,
     return records, row_map
 
 
+def compute_derived_stats(
+    countries: list[dict],
+    countries_prev: list[dict] | None = None,
+) -> None:
+    """
+    Annotate each country record in-place with ranking and year-over-year stats.
+
+    Added fields:
+        globalRank, globalTotal         — rank among all countries by overall score
+        regionalRank, regionalTotal     — rank within the same region
+        incomeRank, incomeTotal         — rank within the same income group
+        globalRankChange                — prev_rank - cur_rank (positive = moved up)
+        scoreChange                     — cur_overall - prev_overall
+        pctChange                       — % change (2 decimal places)
+
+    Countries with no match in the previous year get None for the change fields.
+    """
+    # Sort by overall descending (None treated as 0 for ranking)
+    sorted_cur = sorted(countries, key=lambda c: c.get("overall") or 0, reverse=True)
+    global_total = len(sorted_cur)
+
+    global_rank_cur: dict[str, int] = {}
+    for rank, c in enumerate(sorted_cur, 1):
+        global_rank_cur[c["code"]] = rank
+
+    # Regional ranks (preserve the same sort order within each region)
+    by_region: dict[str, list[dict]] = defaultdict(list)
+    for c in sorted_cur:
+        by_region[c.get("region") or ""].append(c)
+
+    regional_rank: dict[str, int] = {}
+    regional_total: dict[str, int] = {}
+    for region_list in by_region.values():
+        n = len(region_list)
+        for rank, c in enumerate(region_list, 1):
+            regional_rank[c["code"]] = rank
+            regional_total[c["code"]] = n
+
+    # Income ranks
+    by_income: dict[str, list[dict]] = defaultdict(list)
+    for c in sorted_cur:
+        by_income[c.get("income") or ""].append(c)
+
+    income_rank: dict[str, int] = {}
+    income_total: dict[str, int] = {}
+    for income_list in by_income.values():
+        n = len(income_list)
+        for rank, c in enumerate(income_list, 1):
+            income_rank[c["code"]] = rank
+            income_total[c["code"]] = n
+
+    # Previous year lookup
+    prev_by_code: dict[str, dict] = {}
+    if countries_prev:
+        sorted_prev = sorted(
+            countries_prev, key=lambda c: c.get("overall") or 0, reverse=True
+        )
+        for rank, c in enumerate(sorted_prev, 1):
+            prev_by_code[c["code"]] = {
+                "rank": rank,
+                "overall": c.get("overall"),
+            }
+
+    # Annotate
+    for c in countries:
+        code = c["code"]
+        c["globalRank"] = global_rank_cur.get(code)
+        c["globalTotal"] = global_total
+        c["regionalRank"] = regional_rank.get(code)
+        c["regionalTotal"] = regional_total.get(code)
+        c["incomeRank"] = income_rank.get(code)
+        c["incomeTotal"] = income_total.get(code)
+
+        prev = prev_by_code.get(code)
+        if prev is not None:
+            cur_r = global_rank_cur.get(code, 0)
+            c["globalRankChange"] = prev["rank"] - cur_r  # positive = improved
+            cur_s = c.get("overall")
+            prev_s = prev["overall"]
+            if cur_s is not None and prev_s is not None and prev_s != 0:
+                c["scoreChange"] = round(cur_s - prev_s, 4)
+                c["pctChange"] = round((cur_s - prev_s) / prev_s * 100, 2)
+            else:
+                c["scoreChange"] = None
+                c["pctChange"] = None
+        else:
+            c["globalRankChange"] = None
+            c["scoreChange"] = None
+            c["pctChange"] = None
+
+
 def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
     parser = argparse.ArgumentParser(
@@ -188,27 +294,82 @@ def main() -> int:
         default=None,
         help="Specific Excel file to parse (overrides --data-dir auto-discovery).",
     )
+    parser.add_argument(
+        "--base-json",
+        type=Path,
+        default=None,
+        help=(
+            "Load current-year data from an existing roli.json instead of parsing "
+            "an Excel file. Useful when augmenting an already-parsed file with "
+            "derived stats via --prev-input."
+        ),
+    )
+    parser.add_argument(
+        "--prev-input",
+        type=Path,
+        default=None,
+        help=(
+            "Excel file for the previous year (e.g. the WJP historical data file). "
+            "Used to compute year-over-year rank changes and score deltas. "
+            "The script picks the latest score sheet it finds in this file."
+        ),
+    )
     args = parser.parse_args()
 
-    try:
-        input_path = args.input if args.input else find_input_file(args.data_dir)
-    except FileNotFoundError as e:
-        sys.stderr.write(f"{e}\n")
-        return 1
+    # ── Current year data ────────────────────────────────────────────────────
+    if args.base_json:
+        # Skip Excel parsing; load from existing JSON.
+        if not args.base_json.exists():
+            sys.stderr.write(f"--base-json file not found: {args.base_json}\n")
+            return 1
+        payload = json.loads(args.base_json.read_text(encoding="utf-8"))
+        countries = payload["countries"]
+        year = payload["year"]
+        sheet_name = payload.get("sourceSheet", "")
+        input_path = args.base_json
+        print(f"Base JSON: {args.base_json} (year {year}, {len(countries)} countries)")
+    else:
+        try:
+            input_path = args.input if args.input else find_input_file(args.data_dir)
+        except FileNotFoundError as e:
+            sys.stderr.write(f"{e}\n")
+            return 1
 
-    print(f"Input: {input_path}")
+        print(f"Input: {input_path}")
 
-    try:
-        sheet_name, year = detect_latest_year_sheet(input_path)
-    except ValueError as e:
-        sys.stderr.write(f"{e}\n")
-        return 1
+        try:
+            sheet_name, year = detect_latest_year_sheet(input_path)
+        except ValueError as e:
+            sys.stderr.write(f"{e}\n")
+            return 1
 
-    print(f"Latest sheet: {sheet_name!r} (year {year})")
+        print(f"Latest sheet: {sheet_name!r} (year {year})")
 
-    countries, row_map = parse_sheet(input_path, sheet_name)
-    print(f"Indicators found: {len(row_map)}  Countries: {len(countries)}")
+        countries, _ = parse_sheet(input_path, sheet_name)
+        print(f"Countries: {len(countries)}")
 
+    # ── Previous year data (optional) ────────────────────────────────────────
+    countries_prev: list[dict] | None = None
+    if args.prev_input:
+        if not args.prev_input.exists():
+            sys.stderr.write(f"--prev-input file not found: {args.prev_input}\n")
+            return 1
+        try:
+            prev_sheet, prev_year = detect_latest_year_sheet(args.prev_input)
+            countries_prev, _ = parse_sheet(args.prev_input, prev_sheet)
+            print(
+                f"Previous year: {prev_sheet!r} ({prev_year}), "
+                f"{len(countries_prev)} countries"
+            )
+        except Exception as exc:
+            sys.stderr.write(f"Warning: could not parse previous year data: {exc}\n")
+
+    # ── Derived stats ─────────────────────────────────────────────────────────
+    compute_derived_stats(countries, countries_prev)
+    has_prev = countries_prev is not None
+    print(f"Derived stats computed (year-over-year: {'yes' if has_prev else 'no'})")
+
+    # ── Serialize ─────────────────────────────────────────────────────────────
     payload = {
         "year": year,
         "sourceSheet": sheet_name,

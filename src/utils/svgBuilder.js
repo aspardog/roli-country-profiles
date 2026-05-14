@@ -36,13 +36,21 @@ const LAYOUT = {
   valueColWidth: 46, // reserved width for the numeric value on the right
 };
 
+const STATS = {
+  cardHeight: 88,
+  gap: 20,
+};
+
+const GREEN = '#2e7d32';
+const RED = '#c62828';
+
 /** Compute the height needed for a single factor column based on its subfactor count. */
 function factorColumnHeight(subfactorCount) {
   return LAYOUT.factorHeaderHeight + subfactorCount * LAYOUT.barRowHeight;
 }
 
 /** Compute the total SVG height given the data structure. */
-function computeHeight() {
+function computeHeight(hasStats = false) {
   const colsPerRow = LAYOUT.columns;
   const row1Max = Math.max(
     ...FACTOR_STRUCTURE.slice(0, colsPerRow).map(f => factorColumnHeight(f.subfactors.length)),
@@ -50,7 +58,8 @@ function computeHeight() {
   const row2Max = Math.max(
     ...FACTOR_STRUCTURE.slice(colsPerRow).map(f => factorColumnHeight(f.subfactors.length)),
   );
-  return LAYOUT.margin * 2 + LAYOUT.headerHeight + row1Max + LAYOUT.rowGap + row2Max;
+  const statsExtra = hasStats ? STATS.cardHeight + STATS.gap : 0;
+  return LAYOUT.margin * 2 + LAYOUT.headerHeight + statsExtra + row1Max + LAYOUT.rowGap + row2Max;
 }
 
 // --- DOM helpers --------------------------------------------------------
@@ -94,6 +103,117 @@ function wrapWords(str, maxChars) {
   return lines;
 }
 
+// --- Stats card ---------------------------------------------------------
+
+function statChangeColor(value) {
+  if (value == null || value === 0) return COLORS.ink;
+  return value > 0 ? GREEN : RED;
+}
+
+function fmtChange(value, decimals = 2) {
+  if (value == null) return 'n/a';
+  const abs = Math.abs(value).toFixed(decimals);
+  if (value > 0) return `+${abs}`;
+  if (value < 0) return `-${abs}`;
+  return '0';
+}
+
+function buildStatsCard(svg, profile, year, x, y, totalWidth) {
+  const rankChange = profile.globalRankChange;
+  const rankChangeVal =
+    rankChange == null ? 'n/a' : rankChange === 0 ? '0' : fmtChange(rankChange, 0);
+  const pctLabel =
+    year != null ? `% CHG ${Number(year) - 1}-${year}` : '% CHANGE';
+  const pctVal =
+    profile.pctChange != null ? fmtChange(profile.pctChange, 1) + '%' : 'n/a';
+
+  const cols = [
+    {
+      label: 'GLOBAL RANK',
+      value: `${profile.globalRank} / ${profile.globalTotal}`,
+      color: COLORS.ink,
+    },
+    { label: 'RANK CHANGE', value: rankChangeVal, color: statChangeColor(rankChange) },
+    {
+      label: 'REGION RANK',
+      value: profile.regionalRank != null
+        ? `${profile.regionalRank} / ${profile.regionalTotal}`
+        : 'n/a',
+      color: COLORS.ink,
+    },
+    {
+      label: 'SCORE CHANGE',
+      value: fmtChange(profile.scoreChange),
+      color: statChangeColor(profile.scoreChange),
+    },
+    {
+      label: 'INCOME RANK',
+      value: profile.incomeRank != null
+        ? `${profile.incomeRank} / ${profile.incomeTotal}`
+        : 'n/a',
+      color: COLORS.ink,
+    },
+    { label: pctLabel, value: pctVal, color: statChangeColor(profile.pctChange) },
+  ];
+
+  const numCols = cols.length;
+  const colWidth = totalWidth / numCols;
+  const { cardHeight } = STATS;
+  const dividerY = y + 30;
+
+  svg.appendChild(el('rect', {
+    x, y,
+    width: totalWidth,
+    height: cardHeight,
+    fill: COLORS.bg,
+    stroke: COLORS.border,
+    'stroke-width': 1,
+    rx: 3,
+  }));
+
+  svg.appendChild(el('line', {
+    x1: x, y1: dividerY,
+    x2: x + totalWidth, y2: dividerY,
+    stroke: COLORS.border,
+    'stroke-width': 1,
+  }));
+
+  cols.forEach(({ label, value, color }, i) => {
+    const colX = x + i * colWidth;
+    const centerX = colX + colWidth / 2;
+
+    if (i > 0) {
+      svg.appendChild(el('line', {
+        x1: colX, y1: y,
+        x2: colX, y2: y + cardHeight,
+        stroke: COLORS.border,
+        'stroke-width': 1,
+      }));
+    }
+
+    svg.appendChild(text(label, {
+      x: centerX,
+      y: y + 19,
+      'font-family': FONTS.sans,
+      'font-weight': 700,
+      'font-size': 9,
+      fill: COLORS.muted,
+      'text-anchor': 'middle',
+      'letter-spacing': '0.08em',
+    }));
+
+    svg.appendChild(text(value, {
+      x: centerX,
+      y: dividerY + (cardHeight - 30) / 2 + 8,
+      'font-family': FONTS.sans,
+      'font-weight': 700,
+      'font-size': 19,
+      fill: color,
+      'text-anchor': 'middle',
+    }));
+  });
+}
+
 // --- Public API ---------------------------------------------------------
 
 /**
@@ -105,8 +225,10 @@ function wrapWords(str, maxChars) {
  * @returns {SVGSVGElement} Standalone SVG element ready to be serialized.
  */
 export function buildProfileSvg(profile, title, year) {
-  const height = computeHeight();
+  const hasStats = profile.globalRank != null;
+  const height = computeHeight(hasStats);
   const { width, margin, headerHeight, columnGap, rowGap, columns } = LAYOUT;
+  const statsOffset = hasStats ? STATS.cardHeight + STATS.gap : 0;
 
   const svg = el('svg', {
     xmlns: NS,
@@ -139,6 +261,11 @@ export function buildProfileSvg(profile, title, year) {
     'letter-spacing': '0.06em',
   }));
 
+  // --- Stats card ---
+  if (hasStats) {
+    buildStatsCard(svg, profile, year, margin, margin + headerHeight, width - margin * 2);
+  }
+
   // --- Factor grid ---
   const colWidth = (width - margin * 2 - columnGap * (columns - 1)) / columns;
   const barAreaWidth = colWidth - LAYOUT.valueColWidth;
@@ -152,7 +279,7 @@ export function buildProfileSvg(profile, title, year) {
     const col = idx % columns;
     const color = FACTOR_COLORS[factor];
     const x = margin + col * (colWidth + columnGap);
-    const y = margin + headerHeight + (row === 0 ? 0 : row1Max + rowGap);
+    const y = margin + headerHeight + statsOffset + (row === 0 ? 0 : row1Max + rowGap);
 
     // Factor title (wraps to 2 lines if needed)
     const titleStr = FACTOR_TITLES[factor];
@@ -218,7 +345,7 @@ export function buildProfileSvg(profile, title, year) {
       }
 
       // Numeric value
-      svg.appendChild(text(value != null ? value.toFixed(2) : '—', {
+      svg.appendChild(text(value != null ? value.toFixed(2) : '--', {
         x: x + colWidth - 4,
         y: sfY + 28,
         'font-family': FONTS.sans,
@@ -241,10 +368,7 @@ export function serializeSvg(svg) {
   return '<?xml version="1.0" encoding="UTF-8"?>\n' + serializer.serializeToString(svg);
 }
 
-// Cache computed height at module load
-const SVG_HEIGHT = computeHeight();
-
 /** Helper: dimensions exposed for the PDF code so pages match the SVG aspect ratio. */
-export function getSvgDimensions() {
-  return { width: LAYOUT.width, height: SVG_HEIGHT };
+export function getSvgDimensions(hasStats = true) {
+  return { width: LAYOUT.width, height: computeHeight(hasStats) };
 }

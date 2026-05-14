@@ -1,7 +1,7 @@
 {
   "year": 2025,
   "sourceSheet": "WJP ROL Index 2025 Scores",
-  "sourceFile": "2025_wjp_rule_of_law_index_HISTORICAL_DATA_FILE.xlsx",
+  "sourceFile": "roli.json",
   "countries": [
     {
       "country": "Afghanistan",
@@ -60,7 +60,16 @@
       "sf84": 0.1803,
       "sf85": 0.2682,
       "sf86": 0.1311,
-      "sf87": 0.2384
+      "sf87": 0.2384,
+      "globalRank": 142,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 6,
+      "incomeRank": 16,
+      "incomeTotal": 16,
+      "globalRankChange": -2,
+      "scoreChange": -0.0086,
+      "pctChange": -2.72
     },
     {
       "country": "Albania",
@@ -119,7 +128,16 @@
       "sf84": 0.471,
       "sf85": 0.3457,
       "sf86": 0.292,
-      "sf87": 0.5163
+      "sf87": 0.5163,
+      "globalRank": 87,
+      "globalTotal": 143,
+      "regionalRank": 9,
+      "regionalTotal": 15,
+      "incomeRank": 25,
+      "incomeTotal": 41,
+      "globalRankChange": 2,
+      "scoreChange": 0.006,
+      "pctChange": 1.24
     },
     {
       "country": "Algeria",
@@ -178,7 +196,16 @@
       "sf84": 0.5952,
       "sf85": 0.4667,
       "sf86": 0.1759,
-      "sf87": 0.4779
+      "sf87": 0.4779,
+      "globalRank": 88,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 10,
+      "incomeRank": 26,
+      "incomeTotal": 41,
+      "globalRankChange": -4,
+      "scoreChange": -0.0055,
+      "pctChange": -1.11
     },
     {
       "country": "Angola",
@@ -237,7 +264,16 @@
       "sf84": 0.3727,
       "sf85": 0.4792,
       "sf86": 0.2738,
-      "sf87": 0.3304
+      "sf87": 0.3304,
+      "globalRank": 113,
+      "globalTotal": 143,
+      "regionalRank": 20,
+      "regionalTotal": 34,
+      "incomeRank": 20,
+      "incomeTotal": 35,
+      "globalRankChange": 2,
+      "scoreChange": -0.0032,
+      "pctChange": -0.75
     },
     {
       "country": "Antigua and Barbuda",
@@ -296,7 +332,16 @@
       "sf84": 0.5042,
       "sf85": 0.7082,
       "sf86": 0.5644,
-      "sf87": 0.5673
+      "sf87": 0.5673,
+      "globalRank": 38,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 32,
+      "incomeRank": 38,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": 0.0005,
+      "pctChange": 0.08
     },
     {
       "country": "Argentina",
@@ -355,7 +400,16 @@
       "sf84": 0.5009,
       "sf85": 0.4365,
       "sf86": 0.3614,
-      "sf87": 0.529
+      "sf87": 0.529,
+      "globalRank": 65,
+      "globalTotal": 143,
+      "regionalRank": 13,
+      "regionalTotal": 32,
+      "incomeRank": 14,
+      "incomeTotal": 41,
+      "globalRankChange": -2,
+      "scoreChange": -0.0054,
+      "pctChange": -0.99
     },
     {
       "country": "Australia",
@@ -414,7 +468,16 @@
       "sf84": 0.5536,
       "sf85": 0.8475,
       "sf86": 0.8855,
-      "sf87": 0.7676
+      "sf87": 0.7676,
+      "globalRank": 11,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 15,
+      "incomeRank": 11,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.0017,
+      "pctChange": -0.21
     },
     {
       "country": "Austria",
@@ -473,7 +536,16 @@
       "sf84": 0.6865,
       "sf85": 0.8866,
       "sf86": 0.8513,
-      "sf87": 0.8377
+      "sf87": 0.8377,
+      "globalRank": 12,
+      "globalTotal": 143,
+      "regionalRank": 10,
+      "regionalTotal": 31,
+      "incomeRank": 12,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": 0.0007,
+      "pctChange": 0.09
     },
     {
       "country": "The Bahamas",
@@ -532,7 +604,16 @@
       "sf84": 0.5766,
       "sf85": 0.7444,
       "sf86": 0.8009,
-      "sf87": 0.4957
+      "sf87": 0.4957,
+      "globalRank": 51,
+      "globalTotal": 143,
+      "regionalRank": 10,
+      "regionalTotal": 32,
+      "incomeRank": 44,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0055,
+      "pctChange": -0.93
     },
     {
       "country": "Bangladesh",
@@ -591,7 +672,16 @@
       "sf84": 0.2359,
       "sf85": 0.3302,
       "sf86": 0.2648,
-      "sf87": 0.2789
+      "sf87": 0.2789,
+      "globalRank": 125,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 6,
+      "incomeRank": 26,
+      "incomeTotal": 35,
+      "globalRankChange": 2,
+      "scoreChange": 0.0052,
+      "pctChange": 1.35
     },
     {
       "country": "Barbados",
@@ -650,7 +740,16 @@
       "sf84": 0.497,
       "sf85": 0.7952,
       "sf86": 0.6936,
-      "sf87": 0.5576
+      "sf87": 0.5576,
+      "globalRank": 33,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 32,
+      "incomeRank": 33,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": 0.0023,
+      "pctChange": 0.35
     },
     {
       "country": "Belarus",
@@ -709,7 +808,16 @@
       "sf84": 0.4751,
       "sf85": 0.5046,
       "sf86": 0.025,
-      "sf87": 0.3086
+      "sf87": 0.3086,
+      "globalRank": 105,
+      "globalTotal": 143,
+      "regionalRank": 13,
+      "regionalTotal": 15,
+      "incomeRank": 34,
+      "incomeTotal": 41,
+      "globalRankChange": 0,
+      "scoreChange": -0.0017,
+      "pctChange": -0.38
     },
     {
       "country": "Belgium",
@@ -768,7 +876,16 @@
       "sf84": 0.7172,
       "sf85": 0.8141,
       "sf86": 0.8352,
-      "sf87": 0.7772
+      "sf87": 0.7772,
+      "globalRank": 17,
+      "globalTotal": 143,
+      "regionalRank": 13,
+      "regionalTotal": 31,
+      "incomeRank": 17,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0,
+      "pctChange": 0.0
     },
     {
       "country": "Belize",
@@ -827,7 +944,16 @@
       "sf84": 0.4557,
       "sf85": 0.555,
       "sf86": 0.486,
-      "sf87": 0.4102
+      "sf87": 0.4102,
+      "globalRank": 82,
+      "globalTotal": 143,
+      "regionalRank": 19,
+      "regionalTotal": 32,
+      "incomeRank": 23,
+      "incomeTotal": 41,
+      "globalRankChange": 0,
+      "scoreChange": 0.0015,
+      "pctChange": 0.3
     },
     {
       "country": "Benin",
@@ -886,7 +1012,16 @@
       "sf84": 0.6112,
       "sf85": 0.4173,
       "sf86": 0.2529,
-      "sf87": 0.4738
+      "sf87": 0.4738,
+      "globalRank": 94,
+      "globalTotal": 143,
+      "regionalRank": 10,
+      "regionalTotal": 34,
+      "incomeRank": 12,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0044,
+      "pctChange": -0.92
     },
     {
       "country": "Bolivia",
@@ -945,7 +1080,16 @@
       "sf84": 0.2532,
       "sf85": 0.1813,
       "sf86": 0.1,
-      "sf87": 0.2414
+      "sf87": 0.2414,
+      "globalRank": 131,
+      "globalTotal": 143,
+      "regionalRank": 29,
+      "regionalTotal": 32,
+      "incomeRank": 28,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": -0.0022,
+      "pctChange": -0.6
     },
     {
       "country": "Bosnia and Herzegovina",
@@ -1004,7 +1148,16 @@
       "sf84": 0.4604,
       "sf85": 0.4672,
       "sf86": 0.3433,
-      "sf87": 0.6051
+      "sf87": 0.6051,
+      "globalRank": 70,
+      "globalTotal": 143,
+      "regionalRank": 7,
+      "regionalTotal": 15,
+      "incomeRank": 19,
+      "incomeTotal": 41,
+      "globalRankChange": 1,
+      "scoreChange": 0.0005,
+      "pctChange": 0.1
     },
     {
       "country": "Botswana",
@@ -1063,7 +1216,16 @@
       "sf84": 0.6443,
       "sf85": 0.6764,
       "sf86": 0.6748,
-      "sf87": 0.547
+      "sf87": 0.547,
+      "globalRank": 50,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 34,
+      "incomeRank": 5,
+      "incomeTotal": 41,
+      "globalRankChange": 1,
+      "scoreChange": 0.0062,
+      "pctChange": 1.05
     },
     {
       "country": "Brazil",
@@ -1122,7 +1284,16 @@
       "sf84": 0.1111,
       "sf85": 0.5439,
       "sf86": 0.5175,
-      "sf87": 0.3691
+      "sf87": 0.3691,
+      "globalRank": 78,
+      "globalTotal": 143,
+      "regionalRank": 17,
+      "regionalTotal": 32,
+      "incomeRank": 22,
+      "incomeTotal": 41,
+      "globalRankChange": 2,
+      "scoreChange": 0.0053,
+      "pctChange": 1.07
     },
     {
       "country": "Bulgaria",
@@ -1181,7 +1352,16 @@
       "sf84": 0.4801,
       "sf85": 0.5005,
       "sf86": 0.4594,
-      "sf87": 0.5345
+      "sf87": 0.5345,
+      "globalRank": 61,
+      "globalTotal": 143,
+      "regionalRank": 30,
+      "regionalTotal": 31,
+      "incomeRank": 46,
+      "incomeTotal": 51,
+      "globalRankChange": -2,
+      "scoreChange": -0.0055,
+      "pctChange": -0.99
     },
     {
       "country": "Burkina Faso",
@@ -1240,7 +1420,16 @@
       "sf84": 0.506,
       "sf85": 0.481,
       "sf86": 0.5077,
-      "sf87": 0.4612
+      "sf87": 0.4612,
+      "globalRank": 101,
+      "globalTotal": 143,
+      "regionalRank": 12,
+      "regionalTotal": 34,
+      "incomeRank": 4,
+      "incomeTotal": 16,
+      "globalRankChange": -3,
+      "scoreChange": -0.0094,
+      "pctChange": -2.04
     },
     {
       "country": "Cambodia",
@@ -1299,7 +1488,16 @@
       "sf84": 0.2534,
       "sf85": 0.1598,
       "sf86": 0.1144,
-      "sf87": 0.2849
+      "sf87": 0.2849,
+      "globalRank": 141,
+      "globalTotal": 143,
+      "regionalRank": 15,
+      "regionalTotal": 15,
+      "incomeRank": 35,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": -0.0001,
+      "pctChange": -0.03
     },
     {
       "country": "Cameroon",
@@ -1358,7 +1556,16 @@
       "sf84": 0.3136,
       "sf85": 0.2186,
       "sf86": 0.1195,
-      "sf87": 0.2654
+      "sf87": 0.2654,
+      "globalRank": 134,
+      "globalTotal": 143,
+      "regionalRank": 32,
+      "regionalTotal": 34,
+      "incomeRank": 30,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0011,
+      "pctChange": -0.31
     },
     {
       "country": "Canada",
@@ -1417,7 +1624,16 @@
       "sf84": 0.5387,
       "sf85": 0.8439,
       "sf86": 0.9312,
-      "sf87": 0.7508
+      "sf87": 0.7508,
+      "globalRank": 13,
+      "globalTotal": 143,
+      "regionalRank": 11,
+      "regionalTotal": 31,
+      "incomeRank": 13,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0032,
+      "pctChange": -0.4
     },
     {
       "country": "Chile",
@@ -1476,7 +1692,16 @@
       "sf84": 0.5175,
       "sf85": 0.6656,
       "sf86": 0.7323,
-      "sf87": 0.628
+      "sf87": 0.628,
+      "globalRank": 35,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 32,
+      "incomeRank": 35,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": -0.0022,
+      "pctChange": -0.33
     },
     {
       "country": "China",
@@ -1535,7 +1760,16 @@
       "sf84": 0.3714,
       "sf85": 0.5202,
       "sf86": 0.1441,
-      "sf87": 0.4558
+      "sf87": 0.4558,
+      "globalRank": 92,
+      "globalTotal": 143,
+      "regionalRank": 12,
+      "regionalTotal": 15,
+      "incomeRank": 28,
+      "incomeTotal": 41,
+      "globalRankChange": 3,
+      "scoreChange": 0.004,
+      "pctChange": 0.85
     },
     {
       "country": "Colombia",
@@ -1594,7 +1828,16 @@
       "sf84": 0.3135,
       "sf85": 0.432,
       "sf86": 0.4073,
-      "sf87": 0.3732
+      "sf87": 0.3732,
+      "globalRank": 95,
+      "globalTotal": 143,
+      "regionalRank": 22,
+      "regionalTotal": 32,
+      "incomeRank": 30,
+      "incomeTotal": 41,
+      "globalRankChange": -4,
+      "scoreChange": -0.0087,
+      "pctChange": -1.81
     },
     {
       "country": "Congo, Dem. Rep.",
@@ -1653,7 +1896,16 @@
       "sf84": 0.4365,
       "sf85": 0.22,
       "sf86": 0.2045,
-      "sf87": 0.3201
+      "sf87": 0.3201,
+      "globalRank": 136,
+      "globalTotal": 143,
+      "regionalRank": 33,
+      "regionalTotal": 34,
+      "incomeRank": 14,
+      "incomeTotal": 16,
+      "globalRankChange": 0,
+      "scoreChange": -0.0041,
+      "pctChange": -1.19
     },
     {
       "country": "Congo, Rep.",
@@ -1712,7 +1964,16 @@
       "sf84": 0.4598,
       "sf85": 0.3076,
       "sf86": 0.2921,
-      "sf87": 0.3899
+      "sf87": 0.3899,
+      "globalRank": 123,
+      "globalTotal": 143,
+      "regionalRank": 25,
+      "regionalTotal": 34,
+      "incomeRank": 24,
+      "incomeTotal": 35,
+      "globalRankChange": -2,
+      "scoreChange": -0.0029,
+      "pctChange": -0.72
     },
     {
       "country": "Costa Rica",
@@ -1771,7 +2032,16 @@
       "sf84": 0.7177,
       "sf85": 0.6428,
       "sf86": 0.6431,
-      "sf87": 0.7199
+      "sf87": 0.7199,
+      "globalRank": 28,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 32,
+      "incomeRank": 28,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": -0.0001,
+      "pctChange": -0.01
     },
     {
       "country": "Côte d'Ivoire",
@@ -1830,7 +2100,16 @@
       "sf84": 0.4585,
       "sf85": 0.3613,
       "sf86": 0.1142,
-      "sf87": 0.3978
+      "sf87": 0.3978,
+      "globalRank": 106,
+      "globalTotal": 143,
+      "regionalRank": 15,
+      "regionalTotal": 34,
+      "incomeRank": 18,
+      "incomeTotal": 35,
+      "globalRankChange": -2,
+      "scoreChange": -0.0065,
+      "pctChange": -1.44
     },
     {
       "country": "Croatia",
@@ -1889,7 +2168,16 @@
       "sf84": 0.4733,
       "sf85": 0.5671,
       "sf86": 0.4399,
-      "sf87": 0.6558
+      "sf87": 0.6558,
+      "globalRank": 46,
+      "globalTotal": 143,
+      "regionalRank": 28,
+      "regionalTotal": 31,
+      "incomeRank": 42,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0033,
+      "pctChange": -0.54
     },
     {
       "country": "Cyprus",
@@ -1948,7 +2236,16 @@
       "sf84": 0.5941,
       "sf85": 0.6327,
       "sf86": 0.7572,
-      "sf87": 0.7082
+      "sf87": 0.7082,
+      "globalRank": 30,
+      "globalTotal": 143,
+      "regionalRank": 22,
+      "regionalTotal": 31,
+      "incomeRank": 30,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": 0.0023,
+      "pctChange": 0.34
     },
     {
       "country": "Czechia",
@@ -2007,7 +2304,16 @@
       "sf84": 0.6692,
       "sf85": 0.7775,
       "sf86": 0.8274,
-      "sf87": 0.7641
+      "sf87": 0.7641,
+      "globalRank": 20,
+      "globalTotal": 143,
+      "regionalRank": 15,
+      "regionalTotal": 31,
+      "incomeRank": 20,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.0008,
+      "pctChange": -0.11
     },
     {
       "country": "Denmark",
@@ -2066,7 +2372,16 @@
       "sf84": 0.8003,
       "sf85": 0.9753,
       "sf86": 0.9924,
-      "sf87": 0.9094
+      "sf87": 0.9094,
+      "globalRank": 1,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 31,
+      "incomeRank": 1,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.0013,
+      "pctChange": -0.14
     },
     {
       "country": "Dominica",
@@ -2125,7 +2440,16 @@
       "sf84": 0.6015,
       "sf85": 0.7027,
       "sf86": 0.6055,
-      "sf87": 0.6197
+      "sf87": 0.6197,
+      "globalRank": 54,
+      "globalTotal": 143,
+      "regionalRank": 11,
+      "regionalTotal": 32,
+      "incomeRank": 7,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": 0.0004,
+      "pctChange": 0.07
     },
     {
       "country": "Dominican Republic",
@@ -2184,7 +2508,16 @@
       "sf84": 0.4496,
       "sf85": 0.4695,
       "sf86": 0.4019,
-      "sf87": 0.4217
+      "sf87": 0.4217,
+      "globalRank": 76,
+      "globalTotal": 143,
+      "regionalRank": 16,
+      "regionalTotal": 32,
+      "incomeRank": 20,
+      "incomeTotal": 41,
+      "globalRankChange": 10,
+      "scoreChange": 0.0104,
+      "pctChange": 2.11
     },
     {
       "country": "Ecuador",
@@ -2243,7 +2576,16 @@
       "sf84": 0.2966,
       "sf85": 0.3444,
       "sf86": 0.384,
-      "sf87": 0.426
+      "sf87": 0.426,
+      "globalRank": 99,
+      "globalTotal": 143,
+      "regionalRank": 23,
+      "regionalTotal": 32,
+      "incomeRank": 32,
+      "incomeTotal": 41,
+      "globalRankChange": -2,
+      "scoreChange": -0.0067,
+      "pctChange": -1.45
     },
     {
       "country": "Egypt, Arab Rep.",
@@ -2302,7 +2644,16 @@
       "sf84": 0.3298,
       "sf85": 0.4538,
       "sf86": 0.2883,
-      "sf87": 0.2962
+      "sf87": 0.2962,
+      "globalRank": 135,
+      "globalTotal": 143,
+      "regionalRank": 10,
+      "regionalTotal": 10,
+      "incomeRank": 31,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": -0.0046,
+      "pctChange": -1.31
     },
     {
       "country": "El Salvador",
@@ -2361,7 +2712,16 @@
       "sf84": 0.1082,
       "sf85": 0.3585,
       "sf86": 0.1929,
-      "sf87": 0.2157
+      "sf87": 0.2157,
+      "globalRank": 114,
+      "globalTotal": 143,
+      "regionalRank": 26,
+      "regionalTotal": 32,
+      "incomeRank": 36,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0116,
+      "pctChange": -2.69
     },
     {
       "country": "Estonia",
@@ -2420,7 +2780,16 @@
       "sf84": 0.7818,
       "sf85": 0.8932,
       "sf86": 0.8575,
-      "sf87": 0.8156
+      "sf87": 0.8156,
+      "globalRank": 10,
+      "globalTotal": 143,
+      "regionalRank": 9,
+      "regionalTotal": 31,
+      "incomeRank": 10,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0018,
+      "pctChange": 0.22
     },
     {
       "country": "Ethiopia",
@@ -2479,7 +2848,16 @@
       "sf84": 0.3747,
       "sf85": 0.3866,
       "sf86": 0.192,
-      "sf87": 0.306
+      "sf87": 0.306,
+      "globalRank": 132,
+      "globalTotal": 143,
+      "regionalRank": 30,
+      "regionalTotal": 34,
+      "incomeRank": 13,
+      "incomeTotal": 16,
+      "globalRankChange": -2,
+      "scoreChange": -0.0091,
+      "pctChange": -2.45
     },
     {
       "country": "Finland",
@@ -2538,7 +2916,16 @@
       "sf84": 0.8329,
       "sf85": 0.932,
       "sf86": 0.98,
-      "sf87": 0.9249
+      "sf87": 0.9249,
+      "globalRank": 3,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 31,
+      "incomeRank": 3,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.004,
+      "pctChange": -0.46
     },
     {
       "country": "France",
@@ -2597,7 +2984,16 @@
       "sf84": 0.5325,
       "sf85": 0.7639,
       "sf86": 0.7198,
-      "sf87": 0.7171
+      "sf87": 0.7171,
+      "globalRank": 22,
+      "globalTotal": 143,
+      "regionalRank": 17,
+      "regionalTotal": 31,
+      "incomeRank": 22,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.0009,
+      "pctChange": -0.12
     },
     {
       "country": "Gabon",
@@ -2656,7 +3052,16 @@
       "sf84": 0.4869,
       "sf85": 0.2975,
       "sf86": 0.1462,
-      "sf87": 0.3868
+      "sf87": 0.3868,
+      "globalRank": 122,
+      "globalTotal": 143,
+      "regionalRank": 24,
+      "regionalTotal": 34,
+      "incomeRank": 39,
+      "incomeTotal": 41,
+      "globalRankChange": 0,
+      "scoreChange": 0.0052,
+      "pctChange": 1.31
     },
     {
       "country": "The Gambia",
@@ -2715,7 +3120,16 @@
       "sf84": 0.3802,
       "sf85": 0.5704,
       "sf86": 0.5536,
-      "sf87": 0.3769
+      "sf87": 0.3769,
+      "globalRank": 89,
+      "globalTotal": 143,
+      "regionalRank": 9,
+      "regionalTotal": 34,
+      "incomeRank": 3,
+      "incomeTotal": 16,
+      "globalRankChange": -2,
+      "scoreChange": -0.0037,
+      "pctChange": -0.76
     },
     {
       "country": "Georgia",
@@ -2774,7 +3188,16 @@
       "sf84": 0.4661,
       "sf85": 0.698,
       "sf86": 0.2182,
-      "sf87": 0.5733
+      "sf87": 0.5733,
+      "globalRank": 52,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 15,
+      "incomeRank": 6,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0145,
+      "pctChange": -2.43
     },
     {
       "country": "Germany",
@@ -2833,7 +3256,16 @@
       "sf84": 0.734,
       "sf85": 0.8782,
       "sf86": 0.9216,
-      "sf87": 0.846
+      "sf87": 0.846,
+      "globalRank": 6,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 31,
+      "incomeRank": 6,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.001,
+      "pctChange": -0.12
     },
     {
       "country": "Ghana",
@@ -2892,7 +3324,16 @@
       "sf84": 0.5273,
       "sf85": 0.3877,
       "sf86": 0.5886,
-      "sf87": 0.4117
+      "sf87": 0.4117,
+      "globalRank": 63,
+      "globalTotal": 143,
+      "regionalRank": 7,
+      "regionalTotal": 34,
+      "incomeRank": 4,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0026,
+      "pctChange": -0.47
     },
     {
       "country": "Greece",
@@ -2951,7 +3392,16 @@
       "sf84": 0.4216,
       "sf85": 0.6585,
       "sf86": 0.5426,
-      "sf87": 0.542
+      "sf87": 0.542,
+      "globalRank": 48,
+      "globalTotal": 143,
+      "regionalRank": 29,
+      "regionalTotal": 31,
+      "incomeRank": 43,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0048,
+      "pctChange": -0.8
     },
     {
       "country": "Grenada",
@@ -3010,7 +3460,16 @@
       "sf84": 0.5043,
       "sf85": 0.7023,
       "sf86": 0.5549,
-      "sf87": 0.5326
+      "sf87": 0.5326,
+      "globalRank": 49,
+      "globalTotal": 143,
+      "regionalRank": 9,
+      "regionalTotal": 32,
+      "incomeRank": 4,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.0047,
+      "pctChange": -0.78
     },
     {
       "country": "Guatemala",
@@ -3069,7 +3528,16 @@
       "sf84": 0.3209,
       "sf85": 0.4435,
       "sf86": 0.3492,
-      "sf87": 0.3902
+      "sf87": 0.3902,
+      "globalRank": 110,
+      "globalTotal": 143,
+      "regionalRank": 25,
+      "regionalTotal": 32,
+      "incomeRank": 35,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0039,
+      "pctChange": -0.88
     },
     {
       "country": "Guinea",
@@ -3128,7 +3596,16 @@
       "sf84": 0.4437,
       "sf85": 0.2896,
       "sf86": 0.2844,
-      "sf87": 0.3638
+      "sf87": 0.3638,
+      "globalRank": 117,
+      "globalTotal": 143,
+      "regionalRank": 22,
+      "regionalTotal": 34,
+      "incomeRank": 22,
+      "incomeTotal": 35,
+      "globalRankChange": 2,
+      "scoreChange": -0.002,
+      "pctChange": -0.49
     },
     {
       "country": "Guyana",
@@ -3187,7 +3664,16 @@
       "sf84": 0.3978,
       "sf85": 0.4765,
       "sf86": 0.5473,
-      "sf87": 0.4247
+      "sf87": 0.4247,
+      "globalRank": 80,
+      "globalTotal": 143,
+      "regionalRank": 18,
+      "regionalTotal": 32,
+      "incomeRank": 50,
+      "incomeTotal": 51,
+      "globalRankChange": -3,
+      "scoreChange": -0.0004,
+      "pctChange": -0.08
     },
     {
       "country": "Haiti",
@@ -3246,7 +3732,16 @@
       "sf84": 0.2939,
       "sf85": 0.2591,
       "sf86": 0.1662,
-      "sf87": 0.3042
+      "sf87": 0.3042,
+      "globalRank": 140,
+      "globalTotal": 143,
+      "regionalRank": 31,
+      "regionalTotal": 32,
+      "incomeRank": 34,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0073,
+      "pctChange": -2.2
     },
     {
       "country": "Honduras",
@@ -3305,7 +3800,16 @@
       "sf84": 0.2956,
       "sf85": 0.3934,
       "sf86": 0.1822,
-      "sf87": 0.3628
+      "sf87": 0.3628,
+      "globalRank": 116,
+      "globalTotal": 143,
+      "regionalRank": 27,
+      "regionalTotal": 32,
+      "incomeRank": 21,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": -0.0054,
+      "pctChange": -1.3
     },
     {
       "country": "Hong Kong SAR, China",
@@ -3364,7 +3868,16 @@
       "sf84": 0.649,
       "sf85": 0.8897,
       "sf86": 0.4976,
-      "sf87": 0.666
+      "sf87": 0.666,
+      "globalRank": 24,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 15,
+      "incomeRank": 24,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0037,
+      "pctChange": -0.51
     },
     {
       "country": "Hungary",
@@ -3423,7 +3936,16 @@
       "sf84": 0.2368,
       "sf85": 0.6426,
       "sf86": 0.2769,
-      "sf87": 0.5571
+      "sf87": 0.5571,
+      "globalRank": 79,
+      "globalTotal": 143,
+      "regionalRank": 31,
+      "regionalTotal": 31,
+      "incomeRank": 49,
+      "incomeTotal": 51,
+      "globalRankChange": -6,
+      "scoreChange": -0.0104,
+      "pctChange": -2.03
     },
     {
       "country": "India",
@@ -3482,7 +4004,16 @@
       "sf84": 0.3661,
       "sf85": 0.4574,
       "sf86": 0.4945,
-      "sf87": 0.3814
+      "sf87": 0.3814,
+      "globalRank": 86,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 6,
+      "incomeRank": 10,
+      "incomeTotal": 35,
+      "globalRankChange": -7,
+      "scoreChange": -0.0085,
+      "pctChange": -1.71
     },
     {
       "country": "Indonesia",
@@ -3541,7 +4072,16 @@
       "sf84": 0.244,
       "sf85": 0.4756,
       "sf86": 0.3943,
-      "sf87": 0.3472
+      "sf87": 0.3472,
+      "globalRank": 69,
+      "globalTotal": 143,
+      "regionalRank": 9,
+      "regionalTotal": 15,
+      "incomeRank": 18,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.0038,
+      "pctChange": -0.72
     },
     {
       "country": "Iran, Islamic Rep.",
@@ -3600,7 +4140,16 @@
       "sf84": 0.2553,
       "sf85": 0.3608,
       "sf86": 0.2363,
-      "sf87": 0.3683
+      "sf87": 0.3683,
+      "globalRank": 128,
+      "globalTotal": 143,
+      "regionalRank": 9,
+      "regionalTotal": 10,
+      "incomeRank": 40,
+      "incomeTotal": 41,
+      "globalRankChange": 0,
+      "scoreChange": -0.0032,
+      "pctChange": -0.83
     },
     {
       "country": "Ireland",
@@ -3659,7 +4208,16 @@
       "sf84": 0.6252,
       "sf85": 0.824,
       "sf86": 0.8907,
-      "sf87": 0.8399
+      "sf87": 0.8399,
+      "globalRank": 8,
+      "globalTotal": 143,
+      "regionalRank": 7,
+      "regionalTotal": 31,
+      "incomeRank": 8,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": 0.0032,
+      "pctChange": 0.39
     },
     {
       "country": "Italy",
@@ -3718,7 +4276,16 @@
       "sf84": 0.6415,
       "sf85": 0.7445,
       "sf86": 0.8115,
-      "sf87": 0.6575
+      "sf87": 0.6575,
+      "globalRank": 34,
+      "globalTotal": 143,
+      "regionalRank": 25,
+      "regionalTotal": 31,
+      "incomeRank": 34,
+      "incomeTotal": 51,
+      "globalRankChange": -2,
+      "scoreChange": -0.0034,
+      "pctChange": -0.52
     },
     {
       "country": "Jamaica",
@@ -3777,7 +4344,16 @@
       "sf84": 0.5053,
       "sf85": 0.6511,
       "sf86": 0.7202,
-      "sf87": 0.4987
+      "sf87": 0.4987,
+      "globalRank": 57,
+      "globalTotal": 143,
+      "regionalRank": 12,
+      "regionalTotal": 32,
+      "incomeRank": 10,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0004,
+      "pctChange": -0.07
     },
     {
       "country": "Japan",
@@ -3836,7 +4412,16 @@
       "sf84": 0.7695,
       "sf85": 0.9084,
       "sf86": 0.7378,
-      "sf87": 0.7543
+      "sf87": 0.7543,
+      "globalRank": 15,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 15,
+      "incomeRank": 15,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0026,
+      "pctChange": -0.33
     },
     {
       "country": "Jordan",
@@ -3895,7 +4480,16 @@
       "sf84": 0.5437,
       "sf85": 0.7002,
       "sf86": 0.5578,
-      "sf87": 0.498
+      "sf87": 0.498,
+      "globalRank": 62,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 10,
+      "incomeRank": 3,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": 0.0035,
+      "pctChange": 0.64
     },
     {
       "country": "Kazakhstan",
@@ -3954,7 +4548,16 @@
       "sf84": 0.4381,
       "sf85": 0.5065,
       "sf86": 0.3033,
-      "sf87": 0.4572
+      "sf87": 0.4572,
+      "globalRank": 66,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 15,
+      "incomeRank": 15,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": 0.0002,
+      "pctChange": 0.04
     },
     {
       "country": "Kenya",
@@ -4013,7 +4616,16 @@
       "sf84": 0.4306,
       "sf85": 0.3132,
       "sf86": 0.4229,
-      "sf87": 0.394
+      "sf87": 0.394,
+      "globalRank": 102,
+      "globalTotal": 143,
+      "regionalRank": 13,
+      "regionalTotal": 34,
+      "incomeRank": 15,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": -0.0021,
+      "pctChange": -0.46
     },
     {
       "country": "Korea, Rep.",
@@ -4072,7 +4684,16 @@
       "sf84": 0.7429,
       "sf85": 0.6619,
       "sf86": 0.7224,
-      "sf87": 0.8051
+      "sf87": 0.8051,
+      "globalRank": 19,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 15,
+      "incomeRank": 19,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0031,
+      "pctChange": 0.42
     },
     {
       "country": "Kosovo",
@@ -4131,7 +4752,16 @@
       "sf84": 0.5432,
       "sf85": 0.5068,
       "sf86": 0.4422,
-      "sf87": 0.599
+      "sf87": 0.599,
+      "globalRank": 59,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 15,
+      "incomeRank": 11,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": 0.0025,
+      "pctChange": 0.45
     },
     {
       "country": "Kuwait",
@@ -4190,7 +4820,16 @@
       "sf84": 0.2482,
       "sf85": 0.7942,
       "sf86": 0.2319,
-      "sf87": 0.5327
+      "sf87": 0.5327,
+      "globalRank": 53,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 10,
+      "incomeRank": 45,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0043,
+      "pctChange": -0.74
     },
     {
       "country": "Kyrgyz Republic",
@@ -4249,7 +4888,16 @@
       "sf84": 0.2694,
       "sf85": 0.2783,
       "sf86": 0.1676,
-      "sf87": 0.3436
+      "sf87": 0.3436,
+      "globalRank": 104,
+      "globalTotal": 143,
+      "regionalRank": 12,
+      "regionalTotal": 15,
+      "incomeRank": 17,
+      "incomeTotal": 35,
+      "globalRankChange": -3,
+      "scoreChange": -0.005,
+      "pctChange": -1.1
     },
     {
       "country": "Latvia",
@@ -4308,7 +4956,16 @@
       "sf84": 0.726,
       "sf85": 0.6997,
       "sf86": 0.805,
-      "sf87": 0.7304
+      "sf87": 0.7304,
+      "globalRank": 21,
+      "globalTotal": 143,
+      "regionalRank": 16,
+      "regionalTotal": 31,
+      "incomeRank": 21,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0007,
+      "pctChange": 0.1
     },
     {
       "country": "Lebanon",
@@ -4367,7 +5024,16 @@
       "sf84": 0.1716,
       "sf85": 0.4,
       "sf86": 0.2096,
-      "sf87": 0.3985
+      "sf87": 0.3985,
+      "globalRank": 107,
+      "globalTotal": 143,
+      "regionalRank": 8,
+      "regionalTotal": 10,
+      "incomeRank": 19,
+      "incomeTotal": 35,
+      "globalRankChange": 1,
+      "scoreChange": 0.0003,
+      "pctChange": 0.07
     },
     {
       "country": "Liberia",
@@ -4426,7 +5092,16 @@
       "sf84": 0.3388,
       "sf85": 0.3909,
       "sf86": 0.2932,
-      "sf87": 0.3841
+      "sf87": 0.3841,
+      "globalRank": 108,
+      "globalTotal": 143,
+      "regionalRank": 16,
+      "regionalTotal": 34,
+      "incomeRank": 5,
+      "incomeTotal": 16,
+      "globalRankChange": 1,
+      "scoreChange": 0.0,
+      "pctChange": 0.0
     },
     {
       "country": "Lithuania",
@@ -4485,7 +5160,16 @@
       "sf84": 0.8146,
       "sf85": 0.6955,
       "sf86": 0.8019,
-      "sf87": 0.712
+      "sf87": 0.712,
+      "globalRank": 18,
+      "globalTotal": 143,
+      "regionalRank": 14,
+      "regionalTotal": 31,
+      "incomeRank": 18,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0007,
+      "pctChange": 0.09
     },
     {
       "country": "Luxembourg",
@@ -4544,7 +5228,16 @@
       "sf84": 0.5832,
       "sf85": 0.8482,
       "sf86": 0.7223,
-      "sf87": 0.8641
+      "sf87": 0.8641,
+      "globalRank": 7,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 31,
+      "incomeRank": 7,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0002,
+      "pctChange": 0.02
     },
     {
       "country": "Madagascar",
@@ -4603,7 +5296,16 @@
       "sf84": 0.3958,
       "sf85": 0.315,
       "sf86": 0.2388,
-      "sf87": 0.363
+      "sf87": 0.363,
+      "globalRank": 112,
+      "globalTotal": 143,
+      "regionalRank": 19,
+      "regionalTotal": 34,
+      "incomeRank": 8,
+      "incomeTotal": 16,
+      "globalRankChange": 0,
+      "scoreChange": 0.0032,
+      "pctChange": 0.75
     },
     {
       "country": "Malawi",
@@ -4662,7 +5364,16 @@
       "sf84": 0.4625,
       "sf85": 0.436,
       "sf86": 0.6421,
-      "sf87": 0.3833
+      "sf87": 0.3833,
+      "globalRank": 71,
+      "globalTotal": 143,
+      "regionalRank": 8,
+      "regionalTotal": 34,
+      "incomeRank": 2,
+      "incomeTotal": 16,
+      "globalRankChange": -1,
+      "scoreChange": 0.0004,
+      "pctChange": 0.08
     },
     {
       "country": "Malaysia",
@@ -4721,7 +5432,16 @@
       "sf84": 0.4705,
       "sf85": 0.6414,
       "sf86": 0.4639,
-      "sf87": 0.535
+      "sf87": 0.535,
+      "globalRank": 56,
+      "globalTotal": 143,
+      "regionalRank": 7,
+      "regionalTotal": 15,
+      "incomeRank": 9,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.0001,
+      "pctChange": -0.02
     },
     {
       "country": "Mali",
@@ -4780,7 +5500,16 @@
       "sf84": 0.3235,
       "sf85": 0.2544,
       "sf86": 0.2256,
-      "sf87": 0.348
+      "sf87": 0.348,
+      "globalRank": 126,
+      "globalTotal": 143,
+      "regionalRank": 27,
+      "regionalTotal": 34,
+      "incomeRank": 10,
+      "incomeTotal": 16,
+      "globalRankChange": -2,
+      "scoreChange": -0.0086,
+      "pctChange": -2.18
     },
     {
       "country": "Malta",
@@ -4839,7 +5568,16 @@
       "sf84": 0.541,
       "sf85": 0.7574,
       "sf86": 0.7641,
-      "sf87": 0.7306
+      "sf87": 0.7306,
+      "globalRank": 31,
+      "globalTotal": 143,
+      "regionalRank": 23,
+      "regionalTotal": 31,
+      "incomeRank": 31,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0016,
+      "pctChange": -0.24
     },
     {
       "country": "Mauritania",
@@ -4898,7 +5636,16 @@
       "sf84": 0.2079,
       "sf85": 0.2969,
       "sf86": 0.1291,
-      "sf87": 0.3257
+      "sf87": 0.3257,
+      "globalRank": 133,
+      "globalTotal": 143,
+      "regionalRank": 31,
+      "regionalTotal": 34,
+      "incomeRank": 29,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0018,
+      "pctChange": -0.5
     },
     {
       "country": "Mauritius",
@@ -4957,7 +5704,16 @@
       "sf84": 0.5937,
       "sf85": 0.6514,
       "sf86": 0.6255,
-      "sf87": 0.5307
+      "sf87": 0.5307,
+      "globalRank": 47,
+      "globalTotal": 143,
+      "regionalRank": 3,
+      "regionalTotal": 34,
+      "incomeRank": 3,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": 0.0002,
+      "pctChange": 0.03
     },
     {
       "country": "Mexico",
@@ -5016,7 +5772,16 @@
       "sf84": 0.1634,
       "sf85": 0.2836,
       "sf86": 0.3435,
-      "sf87": 0.2928
+      "sf87": 0.2928,
+      "globalRank": 121,
+      "globalTotal": 143,
+      "regionalRank": 28,
+      "regionalTotal": 32,
+      "incomeRank": 38,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0117,
+      "pctChange": -2.82
     },
     {
       "country": "Moldova",
@@ -5075,7 +5840,16 @@
       "sf84": 0.4984,
       "sf85": 0.3737,
       "sf86": 0.4026,
-      "sf87": 0.5262
+      "sf87": 0.5262,
+      "globalRank": 68,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 15,
+      "incomeRank": 17,
+      "incomeTotal": 41,
+      "globalRankChange": -4,
+      "scoreChange": -0.0061,
+      "pctChange": -1.14
     },
     {
       "country": "Mongolia",
@@ -5134,7 +5908,16 @@
       "sf84": 0.4954,
       "sf85": 0.5306,
       "sf86": 0.3403,
-      "sf87": 0.5155
+      "sf87": 0.5155,
+      "globalRank": 67,
+      "globalTotal": 143,
+      "regionalRank": 8,
+      "regionalTotal": 15,
+      "incomeRank": 16,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.0022,
+      "pctChange": -0.41
     },
     {
       "country": "Montenegro",
@@ -5193,7 +5976,16 @@
       "sf84": 0.6979,
       "sf85": 0.4835,
       "sf86": 0.4128,
-      "sf87": 0.5963
+      "sf87": 0.5963,
+      "globalRank": 55,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 15,
+      "incomeRank": 8,
+      "incomeTotal": 41,
+      "globalRankChange": 1,
+      "scoreChange": 0.0021,
+      "pctChange": 0.37
     },
     {
       "country": "Morocco",
@@ -5252,7 +6044,16 @@
       "sf84": 0.3706,
       "sf85": 0.4019,
       "sf86": 0.2517,
-      "sf87": 0.3872
+      "sf87": 0.3872,
+      "globalRank": 91,
+      "globalTotal": 143,
+      "regionalRank": 7,
+      "regionalTotal": 10,
+      "incomeRank": 11,
+      "incomeTotal": 35,
+      "globalRankChange": 1,
+      "scoreChange": 0.0019,
+      "pctChange": 0.4
     },
     {
       "country": "Mozambique",
@@ -5311,7 +6112,16 @@
       "sf84": 0.4013,
       "sf85": 0.3612,
       "sf86": 0.294,
-      "sf87": 0.2728
+      "sf87": 0.2728,
+      "globalRank": 129,
+      "globalTotal": 143,
+      "regionalRank": 29,
+      "regionalTotal": 34,
+      "incomeRank": 12,
+      "incomeTotal": 16,
+      "globalRankChange": -4,
+      "scoreChange": -0.015,
+      "pctChange": -3.86
     },
     {
       "country": "Myanmar",
@@ -5370,7 +6180,16 @@
       "sf84": 0.1544,
       "sf85": 0.3804,
       "sf86": 0.0144,
-      "sf87": 0.1085
+      "sf87": 0.1085,
+      "globalRank": 138,
+      "globalTotal": 143,
+      "regionalRank": 14,
+      "regionalTotal": 15,
+      "incomeRank": 32,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": 0.0006,
+      "pctChange": 0.18
     },
     {
       "country": "Namibia",
@@ -5429,7 +6248,16 @@
       "sf84": 0.6221,
       "sf85": 0.6467,
       "sf86": 0.7256,
-      "sf87": 0.5677
+      "sf87": 0.5677,
+      "globalRank": 45,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 34,
+      "incomeRank": 1,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0028,
+      "pctChange": -0.46
     },
     {
       "country": "Nepal",
@@ -5488,7 +6316,16 @@
       "sf84": 0.4053,
       "sf85": 0.5563,
       "sf86": 0.3947,
-      "sf87": 0.4422
+      "sf87": 0.4422,
+      "globalRank": 72,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 6,
+      "incomeRank": 5,
+      "incomeTotal": 35,
+      "globalRankChange": -3,
+      "scoreChange": -0.0015,
+      "pctChange": -0.29
     },
     {
       "country": "Netherlands",
@@ -5547,7 +6384,16 @@
       "sf84": 0.6571,
       "sf85": 0.8931,
       "sf86": 0.8524,
-      "sf87": 0.8324
+      "sf87": 0.8324,
+      "globalRank": 9,
+      "globalTotal": 143,
+      "regionalRank": 8,
+      "regionalTotal": 31,
+      "incomeRank": 9,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0055,
+      "pctChange": -0.67
     },
     {
       "country": "New Zealand",
@@ -5606,7 +6452,16 @@
       "sf84": 0.6015,
       "sf85": 0.9053,
       "sf86": 0.8648,
-      "sf87": 0.8126
+      "sf87": 0.8126,
+      "globalRank": 5,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 15,
+      "incomeRank": 5,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": 0.0001,
+      "pctChange": 0.01
     },
     {
       "country": "Nicaragua",
@@ -5665,7 +6520,16 @@
       "sf84": 0.2156,
       "sf85": 0.3749,
       "sf86": 0.0,
-      "sf87": 0.2373
+      "sf87": 0.2373,
+      "globalRank": 139,
+      "globalTotal": 143,
+      "regionalRank": 30,
+      "regionalTotal": 32,
+      "incomeRank": 33,
+      "incomeTotal": 35,
+      "globalRankChange": -2,
+      "scoreChange": -0.005,
+      "pctChange": -1.49
     },
     {
       "country": "Niger",
@@ -5724,7 +6588,16 @@
       "sf84": 0.4112,
       "sf85": 0.4093,
       "sf86": 0.2564,
-      "sf87": 0.4027
+      "sf87": 0.4027,
+      "globalRank": 115,
+      "globalTotal": 143,
+      "regionalRank": 21,
+      "regionalTotal": 34,
+      "incomeRank": 9,
+      "incomeTotal": 16,
+      "globalRankChange": -1,
+      "scoreChange": -0.0114,
+      "pctChange": -2.66
     },
     {
       "country": "Nigeria",
@@ -5783,7 +6656,16 @@
       "sf84": 0.5071,
       "sf85": 0.3659,
       "sf86": 0.4165,
-      "sf87": 0.3418
+      "sf87": 0.3418,
+      "globalRank": 120,
+      "globalTotal": 143,
+      "regionalRank": 23,
+      "regionalTotal": 34,
+      "incomeRank": 23,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": 0.0014,
+      "pctChange": 0.35
     },
     {
       "country": "North Macedonia",
@@ -5842,7 +6724,16 @@
       "sf84": 0.5517,
       "sf85": 0.4663,
       "sf86": 0.3546,
-      "sf87": 0.5738
+      "sf87": 0.5738,
+      "globalRank": 64,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 15,
+      "incomeRank": 13,
+      "incomeTotal": 41,
+      "globalRankChange": 3,
+      "scoreChange": 0.007,
+      "pctChange": 1.31
     },
     {
       "country": "Norway",
@@ -5901,7 +6792,16 @@
       "sf84": 0.7084,
       "sf85": 0.9555,
       "sf86": 0.9255,
-      "sf87": 0.8869
+      "sf87": 0.8869,
+      "globalRank": 2,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 31,
+      "incomeRank": 2,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.0018,
+      "pctChange": -0.2
     },
     {
       "country": "Pakistan",
@@ -5960,7 +6860,16 @@
       "sf84": 0.2703,
       "sf85": 0.3983,
       "sf86": 0.3975,
-      "sf87": 0.328
+      "sf87": 0.328,
+      "globalRank": 130,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 6,
+      "incomeRank": 27,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0086,
+      "pctChange": -2.27
     },
     {
       "country": "Panama",
@@ -6019,7 +6928,16 @@
       "sf84": 0.308,
       "sf85": 0.4713,
       "sf86": 0.2576,
-      "sf87": 0.4721
+      "sf87": 0.4721,
+      "globalRank": 73,
+      "globalTotal": 143,
+      "regionalRank": 14,
+      "regionalTotal": 32,
+      "incomeRank": 47,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": 0.0011,
+      "pctChange": 0.21
     },
     {
       "country": "Paraguay",
@@ -6078,7 +6996,16 @@
       "sf84": 0.3648,
       "sf85": 0.2296,
       "sf86": 0.2746,
-      "sf87": 0.4081
+      "sf87": 0.4081,
+      "globalRank": 100,
+      "globalTotal": 143,
+      "regionalRank": 24,
+      "regionalTotal": 32,
+      "incomeRank": 33,
+      "incomeTotal": 41,
+      "globalRankChange": 0,
+      "scoreChange": -0.0044,
+      "pctChange": -0.96
     },
     {
       "country": "Peru",
@@ -6137,7 +7064,16 @@
       "sf84": 0.3442,
       "sf85": 0.3327,
       "sf86": 0.431,
-      "sf87": 0.4
+      "sf87": 0.4,
+      "globalRank": 93,
+      "globalTotal": 143,
+      "regionalRank": 21,
+      "regionalTotal": 32,
+      "incomeRank": 29,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0056,
+      "pctChange": -1.16
     },
     {
       "country": "Philippines",
@@ -6196,7 +7132,16 @@
       "sf84": 0.1998,
       "sf85": 0.4391,
       "sf86": 0.2779,
-      "sf87": 0.3048
+      "sf87": 0.3048,
+      "globalRank": 97,
+      "globalTotal": 143,
+      "regionalRank": 13,
+      "regionalTotal": 15,
+      "incomeRank": 13,
+      "incomeTotal": 35,
+      "globalRankChange": 2,
+      "scoreChange": 0.0018,
+      "pctChange": 0.39
     },
     {
       "country": "Poland",
@@ -6255,7 +7200,16 @@
       "sf84": 0.5972,
       "sf85": 0.7714,
       "sf86": 0.5024,
-      "sf87": 0.6224
+      "sf87": 0.6224,
+      "globalRank": 32,
+      "globalTotal": 143,
+      "regionalRank": 24,
+      "regionalTotal": 31,
+      "incomeRank": 32,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": 0.0028,
+      "pctChange": 0.42
     },
     {
       "country": "Portugal",
@@ -6314,7 +7268,16 @@
       "sf84": 0.4757,
       "sf85": 0.7732,
       "sf86": 0.7545,
-      "sf87": 0.6511
+      "sf87": 0.6511,
+      "globalRank": 29,
+      "globalTotal": 143,
+      "regionalRank": 21,
+      "regionalTotal": 31,
+      "incomeRank": 29,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0037,
+      "pctChange": -0.55
     },
     {
       "country": "Qatar",
@@ -6373,7 +7336,16 @@
       "sf84": 0.3898,
       "sf85": 0.7522,
       "sf86": 0.5451,
-      "sf87": 0.6091
+      "sf87": 0.6091,
+      "globalRank": 41,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 10,
+      "incomeRank": 40,
+      "incomeTotal": 51,
+      "globalRankChange": null,
+      "scoreChange": null,
+      "pctChange": null
     },
     {
       "country": "Romania",
@@ -6432,7 +7404,16 @@
       "sf84": 0.5272,
       "sf85": 0.5798,
       "sf86": 0.4886,
-      "sf87": 0.6043
+      "sf87": 0.6043,
+      "globalRank": 44,
+      "globalTotal": 143,
+      "regionalRank": 27,
+      "regionalTotal": 31,
+      "incomeRank": 41,
+      "incomeTotal": 51,
+      "globalRankChange": -3,
+      "scoreChange": -0.0072,
+      "pctChange": -1.16
     },
     {
       "country": "Russian Federation",
@@ -6491,7 +7472,16 @@
       "sf84": 0.2961,
       "sf85": 0.4554,
       "sf86": 0.0824,
-      "sf87": 0.3229
+      "sf87": 0.3229,
+      "globalRank": 119,
+      "globalTotal": 143,
+      "regionalRank": 15,
+      "regionalTotal": 15,
+      "incomeRank": 51,
+      "incomeTotal": 51,
+      "globalRankChange": -6,
+      "scoreChange": -0.0211,
+      "pctChange": -4.93
     },
     {
       "country": "Rwanda",
@@ -6550,7 +7540,16 @@
       "sf84": 0.7772,
       "sf85": 0.7202,
       "sf86": 0.3866,
-      "sf87": 0.5484
+      "sf87": 0.5484,
+      "globalRank": 39,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 34,
+      "incomeRank": 1,
+      "incomeTotal": 16,
+      "globalRankChange": 1,
+      "scoreChange": -0.0004,
+      "pctChange": -0.06
     },
     {
       "country": "Senegal",
@@ -6609,7 +7608,16 @@
       "sf84": 0.5689,
       "sf85": 0.6053,
       "sf86": 0.3413,
-      "sf87": 0.486
+      "sf87": 0.486,
+      "globalRank": 58,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 34,
+      "incomeRank": 2,
+      "incomeTotal": 35,
+      "globalRankChange": 2,
+      "scoreChange": 0.009,
+      "pctChange": 1.63
     },
     {
       "country": "Serbia",
@@ -6668,7 +7676,16 @@
       "sf84": 0.377,
       "sf85": 0.4108,
       "sf86": 0.1495,
-      "sf87": 0.5094
+      "sf87": 0.5094,
+      "globalRank": 96,
+      "globalTotal": 143,
+      "regionalRank": 11,
+      "regionalTotal": 15,
+      "incomeRank": 31,
+      "incomeTotal": 41,
+      "globalRankChange": -2,
+      "scoreChange": -0.0086,
+      "pctChange": -1.81
     },
     {
       "country": "Sierra Leone",
@@ -6727,7 +7744,16 @@
       "sf84": 0.453,
       "sf85": 0.3838,
       "sf86": 0.2449,
-      "sf87": 0.4217
+      "sf87": 0.4217,
+      "globalRank": 109,
+      "globalTotal": 143,
+      "regionalRank": 17,
+      "regionalTotal": 34,
+      "incomeRank": 6,
+      "incomeTotal": 16,
+      "globalRankChange": 1,
+      "scoreChange": 0.0061,
+      "pctChange": 1.41
     },
     {
       "country": "Singapore",
@@ -6786,7 +7812,16 @@
       "sf84": 0.75,
       "sf85": 0.9142,
       "sf86": 0.5535,
-      "sf87": 0.7654
+      "sf87": 0.7654,
+      "globalRank": 16,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 15,
+      "incomeRank": 16,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": 0.0007,
+      "pctChange": 0.09
     },
     {
       "country": "Slovak Republic",
@@ -6845,7 +7880,16 @@
       "sf84": 0.4803,
       "sf85": 0.5373,
       "sf86": 0.6845,
-      "sf87": 0.6947
+      "sf87": 0.6947,
+      "globalRank": 36,
+      "globalTotal": 143,
+      "regionalRank": 26,
+      "regionalTotal": 31,
+      "incomeRank": 36,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0153,
+      "pctChange": -2.32
     },
     {
       "country": "Slovenia",
@@ -6904,7 +7948,16 @@
       "sf84": 0.5334,
       "sf85": 0.6184,
       "sf86": 0.5105,
-      "sf87": 0.7494
+      "sf87": 0.7494,
+      "globalRank": 26,
+      "globalTotal": 143,
+      "regionalRank": 19,
+      "regionalTotal": 31,
+      "incomeRank": 26,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": -0.0059,
+      "pctChange": -0.86
     },
     {
       "country": "South Africa",
@@ -6963,7 +8016,16 @@
       "sf84": 0.5104,
       "sf85": 0.5729,
       "sf86": 0.7013,
-      "sf87": 0.5306
+      "sf87": 0.5306,
+      "globalRank": 60,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 34,
+      "incomeRank": 12,
+      "incomeTotal": 41,
+      "globalRankChange": -3,
+      "scoreChange": -0.0041,
+      "pctChange": -0.73
     },
     {
       "country": "Spain",
@@ -7022,7 +8084,16 @@
       "sf84": 0.6383,
       "sf85": 0.742,
       "sf86": 0.5763,
-      "sf87": 0.7976
+      "sf87": 0.7976,
+      "globalRank": 25,
+      "globalTotal": 143,
+      "regionalRank": 18,
+      "regionalTotal": 31,
+      "incomeRank": 25,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.004,
+      "pctChange": -0.56
     },
     {
       "country": "Sri Lanka",
@@ -7081,7 +8152,16 @@
       "sf84": 0.4318,
       "sf85": 0.6113,
       "sf86": 0.3882,
-      "sf87": 0.3628
+      "sf87": 0.3628,
+      "globalRank": 74,
+      "globalTotal": 143,
+      "regionalRank": 2,
+      "regionalTotal": 6,
+      "incomeRank": 6,
+      "incomeTotal": 35,
+      "globalRankChange": 1,
+      "scoreChange": 0.0054,
+      "pctChange": 1.07
     },
     {
       "country": "St. Kitts and Nevis",
@@ -7140,7 +8220,16 @@
       "sf84": 0.6345,
       "sf85": 0.7519,
       "sf86": 0.7663,
-      "sf87": 0.6422
+      "sf87": 0.6422,
+      "globalRank": 40,
+      "globalTotal": 143,
+      "regionalRank": 6,
+      "regionalTotal": 32,
+      "incomeRank": 39,
+      "incomeTotal": 51,
+      "globalRankChange": -2,
+      "scoreChange": -0.0031,
+      "pctChange": -0.49
     },
     {
       "country": "St. Lucia",
@@ -7199,7 +8288,16 @@
       "sf84": 0.6205,
       "sf85": 0.6944,
       "sf86": 0.7386,
-      "sf87": 0.5821
+      "sf87": 0.5821,
+      "globalRank": 43,
+      "globalTotal": 143,
+      "regionalRank": 8,
+      "regionalTotal": 32,
+      "incomeRank": 2,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.0016,
+      "pctChange": -0.26
     },
     {
       "country": "St. Vincent and the Grenadines",
@@ -7258,7 +8356,16 @@
       "sf84": 0.5407,
       "sf85": 0.7193,
       "sf86": 0.6937,
-      "sf87": 0.6401
+      "sf87": 0.6401,
+      "globalRank": 42,
+      "globalTotal": 143,
+      "regionalRank": 7,
+      "regionalTotal": 32,
+      "incomeRank": 1,
+      "incomeTotal": 41,
+      "globalRankChange": 1,
+      "scoreChange": -0.0012,
+      "pctChange": -0.19
     },
     {
       "country": "Sudan",
@@ -7317,7 +8424,16 @@
       "sf84": 0.2606,
       "sf85": 0.3766,
       "sf86": 0.2384,
-      "sf87": 0.3094
+      "sf87": 0.3094,
+      "globalRank": 137,
+      "globalTotal": 143,
+      "regionalRank": 34,
+      "regionalTotal": 34,
+      "incomeRank": 15,
+      "incomeTotal": 16,
+      "globalRankChange": -3,
+      "scoreChange": -0.0157,
+      "pctChange": -4.45
     },
     {
       "country": "Suriname",
@@ -7376,7 +8492,16 @@
       "sf84": 0.5817,
       "sf85": 0.5869,
       "sf86": 0.6914,
-      "sf87": 0.4283
+      "sf87": 0.4283,
+      "globalRank": 84,
+      "globalTotal": 143,
+      "regionalRank": 20,
+      "regionalTotal": 32,
+      "incomeRank": 24,
+      "incomeTotal": 41,
+      "globalRankChange": 1,
+      "scoreChange": 0.0013,
+      "pctChange": 0.26
     },
     {
       "country": "Sweden",
@@ -7435,7 +8560,16 @@
       "sf84": 0.802,
       "sf85": 0.8977,
       "sf86": 0.898,
-      "sf87": 0.8873
+      "sf87": 0.8873,
+      "globalRank": 4,
+      "globalTotal": 143,
+      "regionalRank": 4,
+      "regionalTotal": 31,
+      "incomeRank": 4,
+      "incomeTotal": 51,
+      "globalRankChange": 0,
+      "scoreChange": -0.0041,
+      "pctChange": -0.48
     },
     {
       "country": "Tanzania",
@@ -7494,7 +8628,16 @@
       "sf84": 0.4847,
       "sf85": 0.4233,
       "sf86": 0.3607,
-      "sf87": 0.2845
+      "sf87": 0.2845,
+      "globalRank": 98,
+      "globalTotal": 143,
+      "regionalRank": 11,
+      "regionalTotal": 34,
+      "incomeRank": 14,
+      "incomeTotal": 35,
+      "globalRankChange": -2,
+      "scoreChange": -0.0056,
+      "pctChange": -1.2
     },
     {
       "country": "Thailand",
@@ -7553,7 +8696,16 @@
       "sf84": 0.3184,
       "sf85": 0.5754,
       "sf86": 0.5412,
-      "sf87": 0.4429
+      "sf87": 0.4429,
+      "globalRank": 77,
+      "globalTotal": 143,
+      "regionalRank": 10,
+      "regionalTotal": 15,
+      "incomeRank": 21,
+      "incomeTotal": 41,
+      "globalRankChange": 1,
+      "scoreChange": 0.0052,
+      "pctChange": 1.04
     },
     {
       "country": "Togo",
@@ -7612,7 +8764,16 @@
       "sf84": 0.491,
       "sf85": 0.3425,
       "sf86": 0.2482,
-      "sf87": 0.3629
+      "sf87": 0.3629,
+      "globalRank": 111,
+      "globalTotal": 143,
+      "regionalRank": 18,
+      "regionalTotal": 34,
+      "incomeRank": 7,
+      "incomeTotal": 16,
+      "globalRankChange": -5,
+      "scoreChange": -0.0128,
+      "pctChange": -2.87
     },
     {
       "country": "Trinidad and Tobago",
@@ -7671,7 +8832,16 @@
       "sf84": 0.1894,
       "sf85": 0.5154,
       "sf86": 0.3614,
-      "sf87": 0.3641
+      "sf87": 0.3641,
+      "globalRank": 75,
+      "globalTotal": 143,
+      "regionalRank": 15,
+      "regionalTotal": 32,
+      "incomeRank": 48,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0003,
+      "pctChange": -0.06
     },
     {
       "country": "Tunisia",
@@ -7730,7 +8900,16 @@
       "sf84": 0.3737,
       "sf85": 0.4723,
       "sf86": 0.3483,
-      "sf87": 0.4391
+      "sf87": 0.4391,
+      "globalRank": 85,
+      "globalTotal": 143,
+      "regionalRank": 5,
+      "regionalTotal": 10,
+      "incomeRank": 9,
+      "incomeTotal": 35,
+      "globalRankChange": -9,
+      "scoreChange": -0.0138,
+      "pctChange": -2.74
     },
     {
       "country": "Türkiye",
@@ -7789,7 +8968,16 @@
       "sf84": 0.2441,
       "sf85": 0.5396,
       "sf86": 0.039,
-      "sf87": 0.4093
+      "sf87": 0.4093,
+      "globalRank": 118,
+      "globalTotal": 143,
+      "regionalRank": 14,
+      "regionalTotal": 15,
+      "incomeRank": 37,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.0078,
+      "pctChange": -1.88
     },
     {
       "country": "Uganda",
@@ -7848,7 +9036,16 @@
       "sf84": 0.2804,
       "sf85": 0.2861,
       "sf86": 0.2241,
-      "sf87": 0.2938
+      "sf87": 0.2938,
+      "globalRank": 127,
+      "globalTotal": 143,
+      "regionalRank": 28,
+      "regionalTotal": 34,
+      "incomeRank": 11,
+      "incomeTotal": 16,
+      "globalRankChange": -1,
+      "scoreChange": -0.004,
+      "pctChange": -1.03
     },
     {
       "country": "Ukraine",
@@ -7907,7 +9104,16 @@
       "sf84": 0.4995,
       "sf85": 0.3303,
       "sf86": 0.258,
-      "sf87": 0.439
+      "sf87": 0.439,
+      "globalRank": 90,
+      "globalTotal": 143,
+      "regionalRank": 10,
+      "regionalTotal": 15,
+      "incomeRank": 27,
+      "incomeTotal": 41,
+      "globalRankChange": -2,
+      "scoreChange": -0.0032,
+      "pctChange": -0.66
     },
     {
       "country": "United Arab Emirates",
@@ -7966,7 +9172,16 @@
       "sf84": 0.6028,
       "sf85": 0.74,
       "sf86": 0.4217,
-      "sf87": 0.7125
+      "sf87": 0.7125,
+      "globalRank": 37,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 10,
+      "incomeRank": 37,
+      "incomeTotal": 51,
+      "globalRankChange": 2,
+      "scoreChange": 0.0045,
+      "pctChange": 0.71
     },
     {
       "country": "United Kingdom",
@@ -8025,7 +9240,16 @@
       "sf84": 0.5633,
       "sf85": 0.8597,
       "sf86": 0.8179,
-      "sf87": 0.7676
+      "sf87": 0.7676,
+      "globalRank": 14,
+      "globalTotal": 143,
+      "regionalRank": 12,
+      "regionalTotal": 31,
+      "incomeRank": 14,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": -0.0005,
+      "pctChange": -0.06
     },
     {
       "country": "United States",
@@ -8084,7 +9308,16 @@
       "sf84": 0.3563,
       "sf85": 0.7635,
       "sf86": 0.5804,
-      "sf87": 0.6042
+      "sf87": 0.6042,
+      "globalRank": 27,
+      "globalTotal": 143,
+      "regionalRank": 20,
+      "regionalTotal": 31,
+      "incomeRank": 27,
+      "incomeTotal": 51,
+      "globalRankChange": -1,
+      "scoreChange": -0.0192,
+      "pctChange": -2.75
     },
     {
       "country": "Uruguay",
@@ -8143,7 +9376,16 @@
       "sf84": 0.6323,
       "sf85": 0.7621,
       "sf86": 0.7529,
-      "sf87": 0.645
+      "sf87": 0.645,
+      "globalRank": 23,
+      "globalTotal": 143,
+      "regionalRank": 1,
+      "regionalTotal": 32,
+      "incomeRank": 23,
+      "incomeTotal": 51,
+      "globalRankChange": 1,
+      "scoreChange": -0.0011,
+      "pctChange": -0.15
     },
     {
       "country": "Uzbekistan",
@@ -8202,7 +9444,16 @@
       "sf84": 0.3541,
       "sf85": 0.4561,
       "sf86": 0.2205,
-      "sf87": 0.4014
+      "sf87": 0.4014,
+      "globalRank": 81,
+      "globalTotal": 143,
+      "regionalRank": 8,
+      "regionalTotal": 15,
+      "incomeRank": 7,
+      "incomeTotal": 35,
+      "globalRankChange": 2,
+      "scoreChange": 0.0024,
+      "pctChange": 0.49
     },
     {
       "country": "Venezuela, RB",
@@ -8261,7 +9512,16 @@
       "sf84": 0.0981,
       "sf85": 0.2346,
       "sf86": 0.0085,
-      "sf87": 0.1413
+      "sf87": 0.1413,
+      "globalRank": 143,
+      "globalTotal": 143,
+      "regionalRank": 32,
+      "regionalTotal": 32,
+      "incomeRank": 41,
+      "incomeTotal": 41,
+      "globalRankChange": -1,
+      "scoreChange": -0.001,
+      "pctChange": -0.38
     },
     {
       "country": "Vietnam",
@@ -8320,7 +9580,16 @@
       "sf84": 0.5055,
       "sf85": 0.534,
       "sf86": 0.2782,
-      "sf87": 0.4812
+      "sf87": 0.4812,
+      "globalRank": 83,
+      "globalTotal": 143,
+      "regionalRank": 11,
+      "regionalTotal": 15,
+      "incomeRank": 8,
+      "incomeTotal": 35,
+      "globalRankChange": -2,
+      "scoreChange": -0.001,
+      "pctChange": -0.2
     },
     {
       "country": "Zambia",
@@ -8379,7 +9648,16 @@
       "sf84": 0.4687,
       "sf85": 0.3422,
       "sf86": 0.4188,
-      "sf87": 0.3747
+      "sf87": 0.3747,
+      "globalRank": 103,
+      "globalTotal": 143,
+      "regionalRank": 14,
+      "regionalTotal": 34,
+      "incomeRank": 16,
+      "incomeTotal": 35,
+      "globalRankChange": 0,
+      "scoreChange": -0.0025,
+      "pctChange": -0.55
     },
     {
       "country": "Zimbabwe",
@@ -8438,7 +9716,16 @@
       "sf84": 0.3665,
       "sf85": 0.3271,
       "sf86": 0.1908,
-      "sf87": 0.3509
+      "sf87": 0.3509,
+      "globalRank": 124,
+      "globalTotal": 143,
+      "regionalRank": 26,
+      "regionalTotal": 34,
+      "incomeRank": 25,
+      "incomeTotal": 35,
+      "globalRankChange": -1,
+      "scoreChange": -0.0039,
+      "pctChange": -0.98
     }
   ]
 }
