@@ -1,0 +1,41 @@
+{
+  "project": {
+    "name": "ROLI Country Profiles",
+    "description": "Interactive dashboard for the World Justice Project Rule of Law Index country profiles",
+    "type": "web-application"
+  },
+  "codeStyle": {
+    "language": "javascript",
+    "framework": "react",
+    "buildTool": "vite",
+    "formatting": {
+      "singleQuote": true,
+      "trailingComma": "all",
+      "tabWidth": 2
+    }
+  },
+  "conventions": {
+    "components": "Functional components with hooks",
+    "styling": "Inline styles with shared constants in config/",
+    "exports": "Named exports for utilities, default exports for components",
+    "fileNaming": "camelCase for utilities, PascalCase for components"
+  },
+  "paths": {
+    "source": "src/",
+    "components": "src/components/",
+    "utilities": "src/utils/",
+    "config": "src/config/",
+    "hooks": "src/hooks/",
+    "data": "public/data/",
+    "fonts": "public/fonts/"
+  },
+  "testing": {
+    "framework": "none",
+    "coverage": false
+  },
+  "deployment": {
+    "platform": "static-hosting",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist/"
+  }
+}

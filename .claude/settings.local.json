@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm install)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(rm:*)",
+      "Bash(npm run lint)",
+      "Bash(npm ls:*)",
+      "Bash(wc:*)",
+      "Bash(find:*)",
+      "Bash(brew install:*)"
+    ]
+  }
+}
