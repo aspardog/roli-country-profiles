@@ -36,9 +36,9 @@ A strict CSP is enforced to mitigate XSS and code injection:
 
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline';
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src 'self' https://fonts.gstatic.com data:;
+script-src 'self';
+style-src 'self' 'unsafe-inline';
+font-src 'self' data:;
 img-src 'self' data: blob:;
 connect-src 'self';
 object-src 'none';
@@ -52,9 +52,9 @@ form-action 'self';
 | Directive | Allowed Sources | Reason |
 |-----------|-----------------|--------|
 | `default-src` | `'self'` | Block everything by default |
-| `script-src` | `'self' 'unsafe-inline'` | React inline boot script. **No** `'unsafe-eval'` |
-| `style-src` | `'self' 'unsafe-inline'` + Google Fonts | Inline styles + Google Fonts CSS |
-| `font-src` | `'self'` + Google Fonts + `data:` | Allow Google fonts and inline SVG fonts |
+| `script-src` | `'self'` | Only first-party scripts. **No** `'unsafe-inline'` or `'unsafe-eval'` |
+| `style-src` | `'self' 'unsafe-inline'` | Inline styles used throughout the React components |
+| `font-src` | `'self' data:` | Self-hosted font files and inline font data when needed |
 | `img-src` | `'self' data: blob:` | Page-generated SVG blobs (downloads) and data URIs (icons) |
 | `connect-src` | `'self'` | Only fetch from this origin (JSON data file) |
 | `object-src` | `'none'` | Disallow Flash, applets, etc. |
@@ -112,7 +112,7 @@ npm outdated           # Check for outdated packages
 | No `eval()` or `new Function()` | Enforced | Prevents code injection |
 | No hardcoded secrets | Enforced | No API keys or credentials in code |
 | Input sanitization | Implemented | Filenames passed to `<a download>` are sanitized in `utils/exportSvg.js` and `utils/exportPdf.js` |
-| HTTPS only | Enforced | HSTS header + external resources via HTTPS only |
+| HTTPS only | Enforced | HSTS header + all runtime resources served from first-party HTTPS |
 | `rel="noopener"` on programmatic links | Implemented | SVG download anchor sets `rel="noopener"` |
 
 ### Files Excluded from Repository
@@ -173,6 +173,12 @@ We allow `'unsafe-inline'` in `style-src` because React inline styles are
 used throughout the components. A future refactor to CSS Modules or vanilla
 CSS files would let us drop this. The risk is low because we never inject
 user-provided strings into style attributes.
+
+### Self-hosted fonts
+
+The web UI and PDF export use locally served Inter Tight font files from
+`public/fonts/`. This avoids third-party runtime requests to Google Fonts
+and keeps `script-src`, `style-src`, and `font-src` narrower.
 
 ### Client-side PDF generation
 

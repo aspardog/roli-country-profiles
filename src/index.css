@@ -1,3 +1,27 @@
+@font-face {
+  font-family: "Inter Tight";
+  src: url("/fonts/InterTight-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("/fonts/InterTight-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("/fonts/InterTight-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 /* Reset and base styles */
 *, *::before, *::after {
   box-sizing: border-box;

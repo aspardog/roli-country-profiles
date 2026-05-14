@@ -66,7 +66,6 @@ export async function exportCountriesPdf(entries, { filename, year, onProgress }
 
     try {
       if (i > 0) pdf.addPage([width, height], width >= height ? 'landscape' : 'portrait');
-      // eslint-disable-next-line no-await-in-loop
       await svg2pdf(svg, pdf, { x: 0, y: 0, width, height });
     } finally {
       document.body.removeChild(sandbox);

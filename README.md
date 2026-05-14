@@ -30,7 +30,7 @@ The current dataset bundled in the repo is:
 - `Vite 5`
 - `jsPDF`
 - `svg2pdf.js`
-- `Inter Tight` for both UI and PDF output
+- self-hosted `Inter Tight` for both UI and PDF output
 
 ## Project structure
 
