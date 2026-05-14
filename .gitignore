@@ -43,5 +43,12 @@ __pycache__/
 .venv/
 venv/
 
+# Local tooling
+.claude/settings.local.json
+
+# Raw data inputs
+data/*.xlsx
+data/*.xls
+
 # Vercel
 .vercel
