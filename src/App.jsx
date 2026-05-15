@@ -106,7 +106,9 @@ export default function App() {
   const [exportError, setExportError] = useState(null);
 
   const countries = useMemo(() => data?.countries ?? [], [data?.countries]);
+  const averages = data?.averages ?? null;
   const year = data?.year ?? '—';
+  const previousYear = data?.previousYear ?? null;
 
   // Memoize filtered and sorted countries list
   const visibleCountries = useMemo(() => {
@@ -130,14 +132,14 @@ export default function App() {
   // Resolve the entity to display every render. Cheap — pure lookup or
   // an O(N) average over ≤200 records.
   const { profile, title } = useMemo(
-    () => resolveSelection({ countries, selectedCode, region }),
-    [countries, selectedCode, region],
+    () => resolveSelection({ countries, averages, selectedCode, region }),
+    [countries, averages, selectedCode, region],
   );
 
   const handleDownloadSvg = useCallback(() => {
     if (!profile) return;
-    downloadCountrySvg(profile, title, year);
-  }, [profile, title, year]);
+    downloadCountrySvg(profile, title, year, previousYear);
+  }, [profile, title, year, previousYear]);
 
   const handleDownloadPdf = useCallback(async () => {
     const entries = buildPdfEntries({ countries });
@@ -149,6 +151,7 @@ export default function App() {
       await exportCountriesPdf(entries, {
         filename: `ROLI_${year}_all_countries`,
         year,
+        previousYear,
         onProgress: setPdfProgress,
       });
     } catch (err) {
@@ -158,7 +161,7 @@ export default function App() {
       setPdfBusy(false);
       setPdfProgress(null);
     }
-  }, [countries, year]);
+  }, [countries, year, previousYear]);
 
   // --- Render states ---
 
@@ -260,7 +263,12 @@ export default function App() {
         pdfProgress={pdfProgress}
       />
 
-      <CountryProfileChart profile={profile} title={title} year={year} />
+      <CountryProfileChart
+        profile={profile}
+        title={title}
+        year={year}
+        previousYear={previousYear}
+      />
 
       <footer
         style={{

@@ -1,7 +1,7 @@
 {
   "project": {
     "name": "ROLI Country Profiles",
-    "description": "Interactive dashboard for the World Justice Project Rule of Law Index country profiles",
+    "description": "Static country-profile dashboard and data parser for the World Justice Project Rule of Law Index",
     "type": "web-application"
   },
   "codeStyle": {
@@ -20,6 +20,12 @@
     "exports": "Named exports for utilities, default exports for components",
     "fileNaming": "camelCase for utilities, PascalCase for components"
   },
+  "tooling": {
+    "javascriptPackageManager": "npm",
+    "pythonPackageManager": "uv",
+    "pythonEntryPoint": "scripts/parse-roli-data.py",
+    "dataRefreshCommand": "npm run parse-data"
+  },
   "paths": {
     "source": "src/",
     "components": "src/components/",
@@ -32,6 +38,17 @@
   "testing": {
     "framework": "none",
     "coverage": false
+  },
+  "dataContract": {
+    "runtimePayload": "public/data/roli.json",
+    "requiredTopLevelKeys": ["year", "previousYear", "sourceSheet", "sourceFile", "averages", "countries"],
+    "averageKeys": ["global", "regional"],
+    "countryMetrics": "overall, f1..f8, sf11..sf87, ranking and change fields"
+  },
+  "security": {
+    "deploymentHeaders": "vercel.json is the source of truth for CSP and HTTP security headers",
+    "runtimePolicy": "No third-party runtime APIs without CSP review",
+    "sensitivePractices": ["dangerouslySetInnerHTML", "eval", "new Function"]
   },
   "deployment": {
     "platform": "static-hosting",

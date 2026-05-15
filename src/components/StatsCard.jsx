@@ -52,7 +52,7 @@ function tdStyle(color) {
 
 const tdLastStyle = { ...tdStyle(), borderRight: 'none' };
 
-function StatsCard({ profile, year }) {
+function StatsCard({ profile, year, previousYear }) {
   if (!profile || profile.globalRank == null) return null;
 
   const globalRank = `${profile.globalRank} / ${profile.globalTotal}`;
@@ -70,7 +70,9 @@ function StatsCard({ profile, year }) {
     rankChange == null ? '—' : rankChange === 0 ? '0' : fmtChange(rankChange, 0);
 
   const pctLabel =
-    year != null ? `% Change (${year - 1}–${year})` : '% Change';
+    previousYear != null && year != null
+      ? `% Change (${previousYear}–${year})`
+      : '% Change';
 
   const pctVal =
     profile.pctChange != null ? fmtChange(profile.pctChange, 1) + '%' : '—';
@@ -124,6 +126,7 @@ function StatsCard({ profile, year }) {
 StatsCard.propTypes = {
   profile: PropTypes.object,
   year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  previousYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default memo(StatsCard);

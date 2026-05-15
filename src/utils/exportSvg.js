@@ -21,9 +21,10 @@ function sanitizeFilename(name) {
  * @param {object} profile - Country data record.
  * @param {string} title - Display title (used in the rendered SVG and filename).
  * @param {number|string} year - Year shown in the SVG.
+ * @param {number|string} [previousYear] - Comparison year shown in the stats card.
  */
-export function downloadCountrySvg(profile, title, year) {
-  const svg = buildProfileSvg(profile, title, year);
+export function downloadCountrySvg(profile, title, year, previousYear) {
+  const svg = buildProfileSvg(profile, title, year, previousYear);
   const xml = serializeSvg(svg);
   const blob = new Blob([xml], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);

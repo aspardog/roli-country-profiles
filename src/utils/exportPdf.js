@@ -24,10 +24,14 @@ function sanitizeFilename(name) {
  * @param {object} options
  * @param {string} options.filename - Output filename (without extension).
  * @param {number|string} options.year - Year label embedded in each page.
+ * @param {number|string} [options.previousYear] - Comparison year shown in each stats card.
  * @param {(progress: {current: number, total: number}) => void} [options.onProgress]
  *   Optional callback invoked after each page is rendered.
  */
-export async function exportCountriesPdf(entries, { filename, year, onProgress } = {}) {
+export async function exportCountriesPdf(
+  entries,
+  { filename, year, previousYear, onProgress } = {},
+) {
   if (!entries?.length) throw new Error('No entries provided');
 
   // Lazy imports so this code path is only paid for when used.
@@ -52,7 +56,7 @@ export async function exportCountriesPdf(entries, { filename, year, onProgress }
 
   for (let i = 0; i < entries.length; i++) {
     const { profile, title } = entries[i];
-    const svg = buildProfileSvg(profile, title, year);
+    const svg = buildProfileSvg(profile, title, year, previousYear);
 
     // svg2pdf needs the element in the document tree to resolve computed
     // styles. We attach it off-screen, render, then remove.

@@ -1,41 +1,51 @@
 # Project: ROLI Country Profiles
 
-Aplicación React/Vite para explorar perfiles país del **World Justice Project Rule of Law Index 2025**. La UI muestra un perfil individual o un promedio regional/global, y permite exportar el perfil visible a SVG o exportar **todos los países** a un PDF multipágina.
+Aplicación estática en `React + Vite` para explorar y exportar perfiles país del
+**World Justice Project Rule of Law Index**. El repo también incluye el parser
+que transforma el Excel oficial de WJP en el JSON que consume la UI.
 
-## Estado actual del repo
+## Estado actual
 
-- Dataset servido en runtime: `public/data/roli.json`
-- Año actual detectado en el payload: `2025`
+- Runtime dataset: `public/data/roli.json`
+- Artifact versionado espejo: `data/roli.json`
+- Año actual del payload: `2025`
+- Año comparativo del payload: `2024`
 - Países en el dataset actual: `143`
-- Stack: `React 18`, `Vite 5`, `jsPDF`, `svg2pdf.js`
-- Estilos: inline styles + tokens compartidos en `src/config/`
-- Testing: no hay suite automatizada
+- El JSON ahora incluye `averages.global` y `averages.regional`
+- Stack frontend: `React 18`, `Vite 5`
+- Export: `jsPDF`, `svg2pdf.js`
+- Python env: `uv` + `pyproject.toml` + `uv.lock`
+- Testing: no existe suite automatizada
 
-## Mapa rápido del código
+## Mapa real del código
 
 - `src/App.jsx`
-  Orquestador principal. Maneja estado de región, selección, panel About, errores de exportación y progreso del PDF.
+  Orquestador principal. Maneja selección de región/país, estado de exportación y panel About.
 
 - `src/hooks/useRoliData.js`
-  Carga `public/data/roli.json` una sola vez. El año viene del JSON; no debe hardcodearse en la app.
+  Carga `public/data/roli.json` con `fetch()` una sola vez.
 
 - `src/components/ControlPanel.jsx`
-  Toolbar con selectores de región/país y botones de exportación.
+  Toolbar con selectores y acciones de exportación.
 
 - `src/components/CountryProfileChart.jsx`
-  Implementación React del gráfico en pantalla.
+  Renderer React del perfil visible en pantalla.
+
+- `src/components/StatsCard.jsx`
+  Tabla superior con ranks y cambios interanuales para países reales.
 
 - `src/utils/filters.js`
-  Helpers puros para filtrar por región, calcular promedios y resolver la selección actual.
+  Helpers puros para filtrar países y resolver la selección actual.
+  Importante: ya no calcula promedios; usa los precomputados en el JSON.
 
 - `src/utils/svgBuilder.js`
-  Genera el SVG standalone usado por exportación.
+  Renderer SVG standalone usado por SVG download y PDF export.
 
 - `src/utils/exportSvg.js`
-  Descarga el perfil visible como archivo `.svg`.
+  Descarga el perfil visible como `.svg`.
 
 - `src/utils/exportPdf.js`
-  Genera un PDF con una página por país. Usa imports lazy de `jspdf` y `svg2pdf.js`.
+  Genera un PDF multipágina con todos los países en orden alfabético.
 
 - `src/utils/fonts.js`
   Carga los `.ttf` desde `public/fonts/` y registra Inter Tight en jsPDF.
@@ -44,16 +54,17 @@ Aplicación React/Vite para explorar perfiles país del **World Justice Project 
   Fuente de verdad de factores, subfactores y regiones.
 
 - `src/config/labels.js`
-  Labels editoriales de factores y subfactores.
+  Labels de factores y subfactores.
 
 - `src/config/colors.js`
   Paleta, colores por factor y familias tipográficas.
 
 - `scripts/parse-roli-data.py`
-  Parser del Excel WJP. Detecta el archivo, la hoja más reciente y el layout por labels.
+  Parser del Excel WJP. Detecta workbook, hoja más reciente, hoja previa,
+  filas relevantes, estadísticas derivadas y promedios agregados.
 
 - `vercel.json`
-  Configuración de SPA rewrite, CSP, headers de seguridad y caching.
+  Rewrites SPA, CSP, headers y políticas de caché.
 
 ## Flujo de datos real
 
@@ -63,116 +74,95 @@ Excel WJP (.xlsx)
   -> data/roli.json
   -> public/data/roli.json
   -> useRoliData()
-  -> App state (region, selectedCode)
+  -> App state
   -> resolveSelection()
   -> CountryProfileChart (pantalla)
-  -> svgBuilder/exportSvg (SVG visible)
-  -> buildPdfEntries/exportPdf (PDF de todos los países)
+  -> svgBuilder/exportSvg (SVG)
+  -> buildPdfEntries/exportPdf (PDF)
 ```
 
 ## Contratos importantes
 
-### 1. El payload JSON manda
+### 1. El JSON es la fuente de verdad
 
-La UI asume este shape base:
+La UI asume este shape top-level:
 
-- metadatos: `year`, `sourceSheet`, `sourceFile`
-- `countries`: array de registros
-- por país: `country`, `code`, `region`, `income`, `overall`, `f1..f8`, `sf11..sf87`
+- `year`
+- `previousYear`
+- `sourceSheet`
+- `sourceFile`
+- `averages`
+- `countries`
 
-Si cambia el shape del parser, hay que revisar:
+`averages` debe incluir:
+
+- `global`
+- `regional`
+
+Cada país debe incluir:
+
+- `country`, `code`, `region`, `income`
+- `overall`
+- `f1..f8`
+- `sf11..sf87`
+- `globalRank`, `globalTotal`
+- `regionalRank`, `regionalTotal`
+- `incomeRank`, `incomeTotal`
+- `globalRankChange`, `scoreChange`, `pctChange`
+
+Si cambia el shape del parser, revisar:
 
 - `src/hooks/useRoliData.js`
 - `src/utils/filters.js`
+- `src/components/StatsCard.jsx`
 - `src/components/CountryProfileChart.jsx`
 - `src/utils/svgBuilder.js`
 
-### 2. `src/config/` es la fuente de verdad semántica
+### 2. Los promedios ya no se calculan en frontend
 
-Si cambia la estructura del índice WJP, actualizar en conjunto:
+`Global Average` y `Regional Average` deben salir de `data.averages`.
+Si faltan, la UI mostrará `null` para esa selección en lugar de recalcular.
+
+### 3. `src/config/` es la fuente de verdad semántica
+
+Si WJP cambia la estructura del índice, actualizar en conjunto:
 
 - `src/config/structure.js`
 - `src/config/labels.js`
-- `src/config/colors.js` si hay cambios visuales asociados
+- `src/config/colors.js` si cambian semánticas visuales
 
-Tanto el chart React como el SVG exportado iteran sobre esa configuración.
+Tanto el renderer React como el SVG exportado iteran sobre esa configuración.
 
-### 3. Pantalla y export no comparten renderer
+### 4. Pantalla y export son renderers separados
 
 Hay dos implementaciones visuales distintas:
 
-- pantalla: `CountryProfileChart.jsx`
-- export: `svgBuilder.js`
+- pantalla: `src/components/CountryProfileChart.jsx`
+- export: `src/utils/svgBuilder.js`
 
-Cambios de contenido y semántica deben pasar por `src/config/`.
-Cambios de layout fino deben replicarse en ambos lados.
+Cambios de layout deben replicarse en ambos lados.
 
-### 4. El PDF ignora el filtro regional
+### 5. El PDF ignora el filtro regional
 
-`buildPdfEntries()` siempre devuelve **todos los países**, ordenados alfabéticamente.
-Eso es deliberado. El filtro de región solo afecta la UI visible.
+`buildPdfEntries()` siempre devuelve todos los países, ordenados alfabéticamente.
+Eso es deliberado. El filtro regional solo afecta lo visible en pantalla.
 
-### 5. La selección regional siempre vuelve al promedio
+## Seguridad práctica
 
-Cuando cambia `region`, `App.jsx` resetea `selectedCode` a `REGIONAL_AVG_KEY`.
-Esto evita estados inválidos donde queda seleccionado un país fuera de la región activa.
+- No hay backend.
+- No hay autenticación.
+- No hay cookies.
+- No hay `localStorage`.
+- No hay analytics.
+- No usar `dangerouslySetInnerHTML`, `eval`, `new Function`.
+- No introducir requests runtime a terceros sin revisar primero la CSP en `vercel.json`.
 
-## Exportaciones
+### Riesgos conocidos hoy
 
-### SVG
-
-- Exporta exactamente el perfil actualmente visible.
-- El nombre del archivo pasa por `sanitizeFilename()`.
-- No depende de librerías externas; usa `Blob` + `URL.createObjectURL`.
-
-### PDF
-
-- Un país por página.
-- Orden alfabético.
-- No incluye promedios regionales ni globales.
-- Carga `jspdf` y `svg2pdf.js` solo al hacer clic.
-- Registra fuentes Inter Tight desde `public/fonts/`.
-- `svg2pdf.js` requiere montar el SVG en el DOM; por eso existe el sandbox off-screen en `exportPdf.js`.
-- Añade numeración al pie después de renderizar todas las páginas.
-
-## Estilo y UI
-
-- Fondo papel claro con textura sutil en `src/index.css`
-- Tipografía única: `Inter Tight`
-- La app usa principalmente inline styles y constantes compartidas
-- No hay sistema CSS modular ni componentes de diseño externos
-
-## Seguridad y despliegue
-
-- Deploy previsto: `Vercel`
-- `vercel.json` configura rewrite SPA a `index.html`
-- CSP actual:
-  - permite `script-src 'self' 'unsafe-inline'`
-  - permite `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`
-  - permite `font-src 'self' https://fonts.gstatic.com data:`
-  - permite `img-src 'self' data: blob:`
-  - `connect-src 'self'`
-
-Restricciones prácticas:
-
-- evitar `eval`, `new Function`, `dangerouslySetInnerHTML`
-- no introducir dependencias que requieran conexiones a terceros en runtime
-- cualquier cambio en assets inline/data URI debe seguir siendo compatible con la CSP
-
-## Parser de datos
-
-`scripts/parse-roli-data.py` hace estas suposiciones:
-
-- encuentra el Excel en `data/`
-- busca hojas con patrón `WJP ROL Index <YYYY> Scores`
-- detecta filas por etiquetas, no por índices fijos
-- escribe dos salidas:
-  - `data/roli.json`
-  - `public/data/roli.json`
-
-Si no existe `data/`, el parser la crea al escribir.
-
-Riesgo principal: si WJP cambia significativamente los nombres de hoja o labels de filas, fallará la detección automática.
+- `npm audit` reporta vulnerabilidades moderadas/críticas transitivas en `jspdf`
+  y `vite` vía `dompurify` y `esbuild`. Los fixes automáticos hoy implican cambios
+  breaking (`jspdf@4` y `vite@8`), así que cualquier remediación debe probar export
+  PDF y entorno de desarrollo antes de actualizar.
 
 ## Comandos útiles
 
@@ -181,34 +171,34 @@ Riesgo principal: si WJP cambia significativamente los nombres de hoja o labels 
 - `npm run preview`
 - `npm run lint`
 - `npm run parse-data`
+- `npm run audit`
 
-## Riesgos y puntos de mantenimiento
+## Reglas de mantenimiento
 
-- No hay tests; cualquier refactor de `filters.js`, parser o exportación requiere validación manual.
-- El chart React y el SVG exportado pueden desalinearse visualmente si solo se modifica uno.
-- `README.md` puede quedar desactualizado respecto al comportamiento real; priorizar código y este contexto.
-- `settings.local.json` incluye permisos amplios de shell; no asumir que son parte del producto, solo del entorno de trabajo.
+### Si cambias datos
 
-## Checklist para cambios futuros
-
-### Si cambias datos o estructura del índice
-
-1. Actualiza el Excel fuente.
+1. Actualiza el Excel en `data/`.
 2. Ejecuta `npm run parse-data`.
-3. Verifica `public/data/roli.json`.
-4. Revisa `src/config/structure.js` y `labels.js`.
+3. Verifica `data/roli.json` y `public/data/roli.json`.
+4. Revisa que existan `averages.global` y `averages.regional`.
 5. Valida UI, SVG y PDF.
 
-### Si cambias layout visual
+### Si cambias layout
 
 1. Actualiza `CountryProfileChart.jsx`.
-2. Replica en `svgBuilder.js`.
-3. Verifica export SVG.
-4. Verifica export PDF.
+2. Replica el ajuste en `svgBuilder.js`.
+3. Verifica SVG export.
+4. Verifica PDF export.
 
 ### Si cambias fuentes o assets
 
-1. Revisa `src/config/colors.js`
-2. Revisa `src/utils/fonts.js`
-3. Verifica CSP en `vercel.json`
-4. Genera un PDF real para confirmar embedding
+1. Revisa `src/config/colors.js`.
+2. Revisa `src/utils/fonts.js`.
+3. Revisa CSP en `vercel.json`.
+4. Genera un PDF real para validar embedding.
+
+## Nota de contexto
+
+`README.md` es la documentación para humanos externos. Este archivo debe servir
+como mapa operativo corto para trabajo dentro del repo. Si ambos divergen,
+priorizar el código, luego este contexto, y después actualizar el README.

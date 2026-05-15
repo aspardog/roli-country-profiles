@@ -48,7 +48,7 @@ The screen chart (`CountryProfileChart.jsx`) and the export chart (`svgBuilder.j
 Each country record: `country`, `code`, `region`, `income`, `overall`, `f1`–`f8`, `sf11`–`sf87`.  
 Top-level metadata: `year`, `sourceSheet`, `sourceFile`.
 
-When the parser runs with `--prev-input`, each record also gets derived stats: `globalRank`, `globalTotal`, `regionalRank`, `regionalTotal`, `incomeRank`, `incomeTotal`, `globalRankChange`, `scoreChange`, `pctChange`. These fields are absent (or `null`) when the parser is run without a previous-year file. `StatsCard.jsx` renders only when `globalRank != null` — it silently hides itself if derived stats were never computed.
+The parser always computes derived stats for the current release: `globalRank`, `globalTotal`, `regionalRank`, `regionalTotal`, `incomeRank`, `incomeTotal`. When a previous-year score sheet is available, it also fills `globalRankChange`, `scoreChange`, `pctChange`, and sets top-level payload metadata `previousYear`. `StatsCard.jsx` renders when `globalRank != null`; year-over-year fields remain `null` only if no prior score sheet can be resolved.
 
 If the parser output shape changes, audit: `useRoliData.js`, `filters.js`, `CountryProfileChart.jsx`, `svgBuilder.js`, `StatsCard.jsx`.
 
@@ -62,7 +62,7 @@ If the parser output shape changes, audit: `useRoliData.js`, `filters.js`, `Coun
 ## Updating the dataset
 
 1. Place the new WJP Excel workbook in `data/`.
-2. Run `npm run parse-data` (basic scores only), or with year-over-year stats:
+2. Run `npm run parse-data`. The parser will auto-compare against the previous score sheet in the same workbook when possible. Use an explicit override only if needed:
    ```bash
    python3 scripts/parse-roli-data.py --prev-input path/to/previous_year.xlsx
    # Or, to augment an already-parsed JSON without re-parsing the source Excel:

@@ -118,12 +118,14 @@ function fmtChange(value, decimals = 2) {
   return '0';
 }
 
-function buildStatsCard(svg, profile, year, x, y, totalWidth) {
+function buildStatsCard(svg, profile, year, previousYear, x, y, totalWidth) {
   const rankChange = profile.globalRankChange;
   const rankChangeVal =
     rankChange == null ? 'n/a' : rankChange === 0 ? '0' : fmtChange(rankChange, 0);
   const pctLabel =
-    year != null ? `% CHG ${Number(year) - 1}-${year}` : '% CHANGE';
+    previousYear != null && year != null
+      ? `% CHG ${previousYear}-${year}`
+      : '% CHANGE';
   const pctVal =
     profile.pctChange != null ? fmtChange(profile.pctChange, 1) + '%' : 'n/a';
 
@@ -224,7 +226,7 @@ function buildStatsCard(svg, profile, year, x, y, totalWidth) {
  * @param {number|string} year - Year label shown below the title.
  * @returns {SVGSVGElement} Standalone SVG element ready to be serialized.
  */
-export function buildProfileSvg(profile, title, year) {
+export function buildProfileSvg(profile, title, year, previousYear) {
   const hasStats = profile.globalRank != null;
   const height = computeHeight(hasStats);
   const { width, margin, headerHeight, columnGap, rowGap, columns } = LAYOUT;
@@ -263,7 +265,15 @@ export function buildProfileSvg(profile, title, year) {
 
   // --- Stats card ---
   if (hasStats) {
-    buildStatsCard(svg, profile, year, margin, margin + headerHeight, width - margin * 2);
+    buildStatsCard(
+      svg,
+      profile,
+      year,
+      previousYear,
+      margin,
+      margin + headerHeight,
+      width - margin * 2,
+    );
   }
 
   // --- Factor grid ---

@@ -11,24 +11,24 @@ How it adapts to new releases:
    changes the filename next year, the script still finds it.
 
 2. **Latest year**: scans the sheet names for the pattern
-   `WJP ROL Index <YYYY> Scores` (or `<YYYY>-<YYYY>` for hybrid years) and
-   picks the highest year. So next year's release will be picked up
-   automatically.
+   `WJP ROL Index <YYYY> Scores` (or `<YYYY>-<YYYY>` for hybrid years),
+   picks the highest year for the current release, and uses the second-highest
+   year from the same workbook for year-over-year comparisons when available.
 
 3. **Row layout**: scans the first column of the selected sheet to discover
    where each indicator lives ("Country", "Region", "Factor N:", "N.M ..."
    patterns). The script does *not* rely on hardcoded row indices, so
    small layout changes (extra blank rows, reordering) don't break it.
 
-4. **Derived stats** (optional): pass `--prev-input` with the previous year's
-   Excel (or historical data file) to embed global/regional/income ranks and
-   year-over-year score changes in each country record. These fields power
-   the stats card in the UI.
+4. **Derived stats**: embeds global/regional/income ranks and, when a
+   previous-year sheet can be found, year-over-year score changes in each
+   country record. Pass `--prev-input` only when you need to override the
+   default previous-year detection.
 
 Run:
     python3 scripts/parse-roli-data.py
 
-    # With year-over-year stats:
+    # With an explicit previous-year override:
     python3 scripts/parse-roli-data.py \\
         --prev-input path/to/FINAL_2024_historical_data.xlsx
 
@@ -68,6 +68,11 @@ FACTOR_PATTERN = re.compile(r"^\s*Factor\s+(\d+)\s*[:.]", re.IGNORECASE)
 SUBFACTOR_PATTERN = re.compile(r"^\s*(\d+)\.(\d+)\.?\s+\S")
 
 
+def is_metric_key(key: str) -> bool:
+    """Return True for score fields that should participate in averages."""
+    return key == "overall" or key.startswith("f") or key.startswith("sf")
+
+
 def find_input_file(data_dir: Path) -> Path:
     """Locate the WJP source Excel file inside the data directory."""
     patterns = [
@@ -84,8 +89,8 @@ def find_input_file(data_dir: Path) -> Path:
     raise FileNotFoundError(f"No .xlsx file found in {data_dir}")
 
 
-def detect_latest_year_sheet(xlsx_path: Path) -> tuple[str, int]:
-    """Find the sheet for the most recent ROLI release."""
+def list_year_sheets(xlsx_path: Path) -> list[tuple[str, int]]:
+    """Return all score sheets sorted newest-first."""
     xl = pd.ExcelFile(xlsx_path)
     candidates: list[tuple[str, int]] = []
     for sheet in xl.sheet_names:
@@ -98,7 +103,22 @@ def detect_latest_year_sheet(xlsx_path: Path) -> tuple[str, int]:
             f"Available sheets: {xl.sheet_names}"
         )
     candidates.sort(key=lambda x: x[1], reverse=True)
-    return candidates[0]
+    return candidates
+
+
+def detect_latest_year_sheet(xlsx_path: Path) -> tuple[str, int]:
+    """Find the sheet for the most recent ROLI release."""
+    return list_year_sheets(xlsx_path)[0]
+
+
+def detect_previous_year_sheet(
+    xlsx_path: Path, current_year: int
+) -> tuple[str, int] | None:
+    """Find the most recent score sheet strictly older than the current year."""
+    for sheet, year in list_year_sheets(xlsx_path):
+        if year < current_year:
+            return sheet, year
+    return None
 
 
 def detect_row_map(df: pd.DataFrame) -> dict[str, int]:
@@ -277,6 +297,44 @@ def compute_derived_stats(
             c["pctChange"] = None
 
 
+def compute_average_profile(countries: list[dict]) -> dict | None:
+    """Average overall/factor/subfactor metrics across a country list."""
+    if not countries:
+        return None
+
+    metric_keys = sorted({k for c in countries for k in c.keys() if is_metric_key(k)})
+    profile: dict[str, float | None] = {}
+
+    for key in metric_keys:
+        values = [
+            c[key]
+            for c in countries
+            if key in c and c[key] is not None and isinstance(c[key], (int, float))
+        ]
+        profile[key] = round(sum(values) / len(values), 4) if values else None
+
+    return profile
+
+
+def compute_aggregate_profiles(countries: list[dict]) -> dict:
+    """Build global and regional average profiles for dashboard use."""
+    by_region: dict[str, list[dict]] = defaultdict(list)
+    for country in countries:
+        region = country.get("region")
+        if region:
+            by_region[region].append(country)
+
+    regional = {
+        region: compute_average_profile(region_countries)
+        for region, region_countries in sorted(by_region.items())
+    }
+
+    return {
+        "global": compute_average_profile(countries),
+        "regional": regional,
+    }
+
+
 def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
     parser = argparse.ArgumentParser(
@@ -348,8 +406,9 @@ def main() -> int:
         countries, _ = parse_sheet(input_path, sheet_name)
         print(f"Countries: {len(countries)}")
 
-    # ── Previous year data (optional) ────────────────────────────────────────
+    # ── Previous year data (automatic when available) ───────────────────────
     countries_prev: list[dict] | None = None
+    previous_year: int | None = None
     if args.prev_input:
         if not args.prev_input.exists():
             sys.stderr.write(f"--prev-input file not found: {args.prev_input}\n")
@@ -357,14 +416,34 @@ def main() -> int:
         try:
             prev_sheet, prev_year = detect_latest_year_sheet(args.prev_input)
             countries_prev, _ = parse_sheet(args.prev_input, prev_sheet)
+            previous_year = prev_year
             print(
                 f"Previous year: {prev_sheet!r} ({prev_year}), "
                 f"{len(countries_prev)} countries"
             )
         except Exception as exc:
             sys.stderr.write(f"Warning: could not parse previous year data: {exc}\n")
+    elif not args.base_json:
+        try:
+            prev_sheet_info = detect_previous_year_sheet(input_path, year)
+            if prev_sheet_info is not None:
+                prev_sheet, prev_year = prev_sheet_info
+                countries_prev, _ = parse_sheet(input_path, prev_sheet)
+                previous_year = prev_year
+                print(
+                    f"Previous year: {prev_sheet!r} ({prev_year}), "
+                    f"{len(countries_prev)} countries"
+                )
+            else:
+                print("Previous year: none found in the current workbook")
+        except Exception as exc:
+            sys.stderr.write(
+                "Warning: could not auto-detect previous year data: "
+                f"{exc}\n"
+            )
 
     # ── Derived stats ─────────────────────────────────────────────────────────
+    aggregates = compute_aggregate_profiles(countries)
     compute_derived_stats(countries, countries_prev)
     has_prev = countries_prev is not None
     print(f"Derived stats computed (year-over-year: {'yes' if has_prev else 'no'})")
@@ -372,8 +451,10 @@ def main() -> int:
     # ── Serialize ─────────────────────────────────────────────────────────────
     payload = {
         "year": year,
+        "previousYear": previous_year,
         "sourceSheet": sheet_name,
         "sourceFile": input_path.name,
+        "averages": aggregates,
         "countries": countries,
     }
     serialized = json.dumps(payload, ensure_ascii=False, indent=2)

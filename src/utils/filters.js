@@ -4,10 +4,7 @@
  * Pure functions — no side effects, no DOM, no React. Easy to unit-test
  * and reuse from export code that runs outside of components.
  */
-import { FACTOR_STRUCTURE, REGIONAL_AVG_KEY } from '../config';
-
-// Pre-compute metric keys once at module load
-const METRIC_KEYS = ['overall', ...FACTOR_STRUCTURE.flatMap(f => [f.factor, ...f.subfactors])];
+import { REGIONAL_AVG_KEY } from '../config';
 
 /**
  * Filter countries by region. Pass '__global__' to skip filtering.
@@ -18,40 +15,17 @@ export function filterByRegion(countries, region) {
 }
 
 /**
- * Compute the average profile across a list of countries.
- * Used for "Global Average" and "{Region} — Regional Average".
- *
- * Each field is averaged independently across countries where it is non-null.
- */
-export function averageProfile(countries) {
-  if (!countries?.length) return null;
-  const result = {};
-  for (const key of METRIC_KEYS) {
-    let sum = 0;
-    let n = 0;
-    for (const c of countries) {
-      const v = c[key];
-      if (v != null && Number.isFinite(v)) {
-        sum += v;
-        n += 1;
-      }
-    }
-    result[key] = n > 0 ? Math.round((sum / n) * 10000) / 10000 : null;
-  }
-  return result;
-}
-
-/**
  * Resolve the currently-selected entity into a {profile, title} pair.
  *
  * Selection can be:
  *   - A country code (e.g. "COL") — returns that country's data
- *   - REGIONAL_AVG_KEY ("__regional_avg__") — returns the avg over the region filter
+ *   - REGIONAL_AVG_KEY ("__regional_avg__") — returns the precomputed average from JSON
  */
-export function resolveSelection({ countries, selectedCode, region }) {
+export function resolveSelection({ countries, averages, selectedCode, region }) {
   if (selectedCode === REGIONAL_AVG_KEY) {
-    const inRegion = filterByRegion(countries, region);
-    const profile = averageProfile(inRegion);
+    const profile = region === '__global__'
+      ? averages?.global ?? null
+      : averages?.regional?.[region] ?? null;
     const title = region === '__global__' ? 'Global Average' : `${region} — Regional Average`;
     return { profile, title };
   }

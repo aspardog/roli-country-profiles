@@ -118,7 +118,7 @@ FactorSection.propTypes = {
   data: PropTypes.object.isRequired,
 };
 
-function CountryProfileChart({ profile, title, year }) {
+function CountryProfileChart({ profile, title, year, previousYear }) {
   if (!profile) {
     return (
       <div
@@ -171,7 +171,7 @@ function CountryProfileChart({ profile, title, year }) {
         </div>
       </header>
 
-      <StatsCard profile={profile} year={year} />
+      <StatsCard profile={profile} year={year} previousYear={previousYear} />
 
       <div
         style={{
@@ -197,6 +197,7 @@ CountryProfileChart.propTypes = {
   profile: PropTypes.object,
   title: PropTypes.string.isRequired,
   year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  previousYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default memo(CountryProfileChart);

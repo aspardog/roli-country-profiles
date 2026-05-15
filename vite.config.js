@@ -10,9 +10,12 @@ export default defineConfig({
     sourcemap: false, // Don't ship source maps to production
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Split heavy export libs into their own chunk so they load on demand
-          'pdf-export': ['jspdf', 'svg2pdf.js'],
+        // Split heavy export libs into their own chunk so they load on demand.
+        manualChunks(id) {
+          if (id.includes('node_modules/jspdf') || id.includes('node_modules/svg2pdf.js')) {
+            return 'pdf-export';
+          }
+          return undefined;
         },
       },
     },

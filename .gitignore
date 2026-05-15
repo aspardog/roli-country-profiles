@@ -40,11 +40,18 @@ lerna-debug.log*
 # Python
 __pycache__/
 *.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 .venv/
 venv/
+.uv-cache/
 
 # Local tooling
 .claude/settings.local.json
+.claude/*.local.md
 
 # Raw data inputs
 data/*.xlsx
