@@ -13,6 +13,10 @@ npm run parse-data   # Regenerate public/data/roli.json from the WJP Excel workb
 npm run audit        # High-severity npm audit
 ```
 
+`npm run parse-data` is implemented as `uv run python scripts/parse-roli-data.py`. You need [`uv`](https://docs.astral.sh/uv/) installed; it manages the Python version and dependencies automatically (no manual `pip install`).
+
+Node version: `24.12.0` (see `engines` in `package.json`).
+
 No automated test suite exists. After any significant change, manually verify:
 1. On-screen rendering in the browser
 2. SVG export of the visible profile
@@ -50,11 +54,21 @@ Top-level metadata: `year`, `sourceSheet`, `sourceFile`.
 
 The parser always computes derived stats for the current release: `globalRank`, `globalTotal`, `regionalRank`, `regionalTotal`, `incomeRank`, `incomeTotal`. When a previous-year score sheet is available, it also fills `globalRankChange`, `scoreChange`, `pctChange`, and sets top-level payload metadata `previousYear`. `StatsCard.jsx` renders when `globalRank != null`; year-over-year fields remain `null` only if no prior score sheet can be resolved.
 
+The JSON also contains a pre-computed `averages` object with two keys: `averages.global` (score averages over all countries) and `averages.regional` (a map of `regionName → scores`). These are consumed by `resolveSelection` in `filters.js` when the selected entity is an average rather than a specific country.
+
 If the parser output shape changes, audit: `useRoliData.js`, `filters.js`, `CountryProfileChart.jsx`, `svgBuilder.js`, `StatsCard.jsx`.
+
+### Two sentinel values to keep straight
+
+- `'__global__'` — the **region** sentinel meaning "all regions / no region filter". Lives in `REGIONS` array in `structure.js`.
+- `'__regional_avg__'` (`REGIONAL_AVG_KEY`) — the **selected-entity** sentinel meaning "show the precomputed average for the active region, not a specific country". Set whenever `selectedCode` should point to an average.
+
+These serve different axes of state and must not be conflated.
 
 ### Key behavioral contracts
 
 - Region change resets `selectedCode` to `REGIONAL_AVG_KEY` (avoids invalid state).
+- All UI styling is inline JS style objects (no CSS-in-JS library, no utility classes). Only `src/index.css` provides global resets.
 - PDF export always includes every country alphabetically, ignoring the active region filter — this is intentional.
 - `svg2pdf.js` requires the SVG to be mounted in the DOM; `exportPdf.js` uses a temporary off-screen sandbox node for this.
 - PDF libraries (`jspdf`, `svg2pdf.js`) are loaded lazily (dynamic import) to avoid penalizing the initial bundle.
