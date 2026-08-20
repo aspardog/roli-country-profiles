@@ -25,6 +25,11 @@ How it adapts to new releases:
    country record. Pass `--prev-input` only when you need to override the
    default previous-year detection.
 
+5. **Historical prototype data**: embeds one overall/factor observation per
+   edition from 2015 onward, historical global/regional averages, and current
+   global/regional/income ranks for each of the eight factors. Combined
+   2017-2018 data remains a single edition labeled `2017-18`.
+
 Run:
     python3 scripts/parse-roli-data.py
 
@@ -59,7 +64,7 @@ except ImportError:
 STRING_KEYS = {"country", "code", "region", "income"}
 
 SHEET_YEAR_PATTERN = re.compile(
-    r"WJP\s*ROL\s*Index\s*(\d{4})(?:\s*-\s*\d{4})?\s*Scores",
+    r"WJP\s*ROL\s*Index\s*(\d{4})(?:\s*-\s*(\d{4}))?\s*Scores",
     re.IGNORECASE,
 )
 
@@ -67,10 +72,14 @@ FACTOR_PATTERN = re.compile(r"^\s*Factor\s+(\d+)\s*[:.]", re.IGNORECASE)
 # Subfactor labels look like "1.1 Government powers..." or "7.6. Civil justice..."
 SUBFACTOR_PATTERN = re.compile(r"^\s*(\d+)\.(\d+)\.?\s+\S")
 
+HISTORICAL_START_YEAR = 2015
+HISTORICAL_METRIC_KEYS = ("overall",) + tuple(f"f{i}" for i in range(1, 9))
+FACTOR_KEYS = tuple(f"f{i}" for i in range(1, 9))
+
 
 def is_metric_key(key: str) -> bool:
     """Return True for score fields that should participate in averages."""
-    return key == "overall" or key.startswith("f") or key.startswith("sf")
+    return key == "overall" or re.fullmatch(r"(?:f|sf)\d+", key) is not None
 
 
 def find_input_file(data_dir: Path) -> Path:
@@ -90,13 +99,15 @@ def find_input_file(data_dir: Path) -> Path:
 
 
 def list_year_sheets(xlsx_path: Path) -> list[tuple[str, int]]:
-    """Return all score sheets sorted newest-first."""
+    """Return all score sheets as ``(name, final_year)``, newest-first."""
     xl = pd.ExcelFile(xlsx_path)
     candidates: list[tuple[str, int]] = []
     for sheet in xl.sheet_names:
         m = SHEET_YEAR_PATTERN.search(sheet)
         if m:
-            candidates.append((sheet, int(m.group(1))))
+            # A combined release such as 2017-2018 is one edition whose
+            # numeric year is its final year (2018), not two observations.
+            candidates.append((sheet, int(m.group(2) or m.group(1))))
     if not candidates:
         raise ValueError(
             f"No 'WJP ROL Index <YYYY> Scores' sheet found in {xlsx_path}. "
@@ -104,6 +115,18 @@ def list_year_sheets(xlsx_path: Path) -> list[tuple[str, int]]:
         )
     candidates.sort(key=lambda x: x[1], reverse=True)
     return candidates
+
+
+def edition_label(sheet_name: str) -> str:
+    """Build the compact display label used by historical charts."""
+    match = SHEET_YEAR_PATTERN.search(sheet_name)
+    if not match:
+        raise ValueError(f"Could not determine edition label from {sheet_name!r}")
+    start_year = int(match.group(1))
+    end_year = int(match.group(2) or start_year)
+    if start_year == end_year:
+        return str(start_year)
+    return f"{start_year}-{str(end_year)[-2:]}"
 
 
 def detect_latest_year_sheet(xlsx_path: Path) -> tuple[str, int]:
@@ -209,6 +232,7 @@ def parse_sheet(xlsx_path: Path, sheet_name: str) -> tuple[list[dict], dict[str,
 def compute_derived_stats(
     countries: list[dict],
     countries_prev: list[dict] | None = None,
+    preserve_changes: bool = False,
 ) -> None:
     """
     Annotate each country record in-place with ranking and year-over-year stats.
@@ -221,7 +245,8 @@ def compute_derived_stats(
         scoreChange                     — cur_overall - prev_overall
         pctChange                       — % change (2 decimal places)
 
-    Countries with no match in the previous year get None for the change fields.
+    Countries with no match in the previous year get None for the change fields,
+    unless ``preserve_changes`` is used while augmenting an existing JSON.
     """
     # Sort by overall descending (None treated as 0 for ranking)
     sorted_cur = sorted(countries, key=lambda c: c.get("overall") or 0, reverse=True)
@@ -291,7 +316,7 @@ def compute_derived_stats(
             else:
                 c["scoreChange"] = None
                 c["pctChange"] = None
-        else:
+        elif not preserve_changes:
             c["globalRankChange"] = None
             c["scoreChange"] = None
             c["pctChange"] = None
@@ -335,6 +360,144 @@ def compute_aggregate_profiles(countries: list[dict]) -> dict:
     }
 
 
+def historical_metric_profile(countries: list[dict]) -> dict[str, float | None]:
+    """Average only the overall and eight factor scores for one edition."""
+    profile: dict[str, float | None] = {}
+    for key in HISTORICAL_METRIC_KEYS:
+        values = [
+            country.get(key)
+            for country in countries
+            if isinstance(country.get(key), (int, float))
+            and not isinstance(country.get(key), bool)
+        ]
+        profile[key] = round(sum(values) / len(values), 4) if values else None
+    return profile
+
+
+def parse_historical_editions(
+    xlsx_path: Path,
+    through_year: int,
+) -> list[dict]:
+    """Parse score-sheet editions from 2015 through ``through_year``."""
+    editions: list[dict] = []
+    for sheet_name, year in reversed(list_year_sheets(xlsx_path)):
+        if year < HISTORICAL_START_YEAR or year > through_year:
+            continue
+        records, _ = parse_sheet(xlsx_path, sheet_name)
+        editions.append(
+            {
+                "year": year,
+                "label": edition_label(sheet_name),
+                "countries": records,
+            }
+        )
+    return editions
+
+
+def attach_historical_data(
+    countries: list[dict],
+    editions: list[dict],
+) -> list[dict]:
+    """Attach country histories and return matching global/regional averages."""
+    history_by_code: dict[str, list[dict]] = defaultdict(list)
+    historical_averages: list[dict] = []
+
+    for edition in editions:
+        edition_countries = edition["countries"]
+        year = edition["year"]
+        label = edition["label"]
+
+        by_region: dict[str, list[dict]] = defaultdict(list)
+        for country in edition_countries:
+            region = country.get("region")
+            if region:
+                by_region[region].append(country)
+
+            code = country.get("code")
+            if not code:
+                continue
+            history_by_code[code].append(
+                {
+                    "year": year,
+                    "label": label,
+                    **{key: country.get(key) for key in HISTORICAL_METRIC_KEYS},
+                }
+            )
+
+        historical_averages.append(
+            {
+                "year": year,
+                "label": label,
+                "global": historical_metric_profile(edition_countries),
+                "regional": {
+                    region: historical_metric_profile(region_countries)
+                    for region, region_countries in sorted(by_region.items())
+                },
+            }
+        )
+
+    for country in countries:
+        country["history"] = history_by_code.get(country.get("code"), [])
+
+    return historical_averages
+
+
+def compute_factor_ranks(countries: list[dict]) -> None:
+    """Attach current global, regional, and income ranks for factors 1–8."""
+    for country in countries:
+        country["factorRanks"] = {}
+
+    for factor in FACTOR_KEYS:
+        ranked_global = sorted(
+            (
+                country
+                for country in countries
+                if isinstance(country.get(factor), (int, float))
+                and not isinstance(country.get(factor), bool)
+            ),
+            key=lambda country: country[factor],
+            reverse=True,
+        )
+        global_ranks = {
+            country["code"]: rank for rank, country in enumerate(ranked_global, 1)
+        }
+
+        regional_groups: dict[str, list[dict]] = defaultdict(list)
+        income_groups: dict[str, list[dict]] = defaultdict(list)
+        for country in ranked_global:
+            regional_groups[country.get("region") or ""].append(country)
+            income_groups[country.get("income") or ""].append(country)
+
+        regional_ranks: dict[str, int] = {}
+        regional_totals: dict[str, int] = {}
+        for region, region_countries in regional_groups.items():
+            total = len(region_countries)
+            regional_totals[region] = total
+            for rank, country in enumerate(region_countries, 1):
+                regional_ranks[country["code"]] = rank
+
+        income_ranks: dict[str, int] = {}
+        income_totals: dict[str, int] = {}
+        for income, income_countries in income_groups.items():
+            total = len(income_countries)
+            income_totals[income] = total
+            for rank, country in enumerate(income_countries, 1):
+                income_ranks[country["code"]] = rank
+
+        for country in countries:
+            code = country.get("code")
+            region = country.get("region") or ""
+            income = country.get("income") or ""
+            country["factorRanks"][factor] = {
+                "globalRank": global_ranks.get(code),
+                "globalTotal": len(ranked_global),
+                "regionalRank": regional_ranks.get(code),
+                "regionalTotal": regional_totals.get(region, 0),
+                "incomeRank": income_ranks.get(code),
+                "incomeTotal": income_totals.get(income, 0),
+            }
+
+
 def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
     parser = argparse.ArgumentParser(
@@ -373,6 +536,7 @@ def main() -> int:
         ),
     )
     args = parser.parse_args()
+    base_payload: dict | None = None
 
     # ── Current year data ────────────────────────────────────────────────────
     if args.base_json:
@@ -380,10 +544,10 @@ def main() -> int:
         if not args.base_json.exists():
             sys.stderr.write(f"--base-json file not found: {args.base_json}\n")
             return 1
-        payload = json.loads(args.base_json.read_text(encoding="utf-8"))
-        countries = payload["countries"]
-        year = payload["year"]
-        sheet_name = payload.get("sourceSheet", "")
+        base_payload = json.loads(args.base_json.read_text(encoding="utf-8"))
+        countries = base_payload["countries"]
+        year = int(base_payload["year"])
+        sheet_name = base_payload.get("sourceSheet", "")
         input_path = args.base_json
         print(f"Base JSON: {args.base_json} (year {year}, {len(countries)} countries)")
     else:
@@ -406,9 +570,26 @@ def main() -> int:
         countries, _ = parse_sheet(input_path, sheet_name)
         print(f"Countries: {len(countries)}")
 
+    # The current release may come from --base-json, but historical charts still
+    # need a score-sheet workbook. Prefer an explicit --input, then the workbook
+    # in --data-dir, and finally --prev-input as a best-effort fallback.
+    history_input_path: Path | None
+    if args.base_json:
+        if args.input:
+            history_input_path = args.input
+        else:
+            try:
+                history_input_path = find_input_file(args.data_dir)
+            except FileNotFoundError:
+                history_input_path = args.prev_input
+    else:
+        history_input_path = input_path
+
     # ── Previous year data (automatic when available) ───────────────────────
     countries_prev: list[dict] | None = None
-    previous_year: int | None = None
+    previous_year: int | None = (
+        base_payload.get("previousYear") if base_payload is not None else None
+    )
     if args.prev_input:
         if not args.prev_input.exists():
             sys.stderr.write(f"--prev-input file not found: {args.prev_input}\n")
@@ -423,12 +604,12 @@ def main() -> int:
             )
         except Exception as exc:
             sys.stderr.write(f"Warning: could not parse previous year data: {exc}\n")
-    elif not args.base_json:
+    elif history_input_path is not None:
         try:
-            prev_sheet_info = detect_previous_year_sheet(input_path, year)
+            prev_sheet_info = detect_previous_year_sheet(history_input_path, year)
             if prev_sheet_info is not None:
                 prev_sheet, prev_year = prev_sheet_info
-                countries_prev, _ = parse_sheet(input_path, prev_sheet)
+                countries_prev, _ = parse_sheet(history_input_path, prev_sheet)
                 previous_year = prev_year
                 print(
                     f"Previous year: {prev_sheet!r} ({prev_year}), "
@@ -444,7 +625,35 @@ def main() -> int:
 
     # ── Derived stats ─────────────────────────────────────────────────────────
     aggregates = compute_aggregate_profiles(countries)
-    compute_derived_stats(countries, countries_prev)
+    compute_derived_stats(
+        countries,
+        countries_prev,
+        preserve_changes=bool(args.base_json and countries_prev is None),
+    )
+    compute_factor_ranks(countries)
+
+    historical_averages = (
+        base_payload.get("historicalAverages", [])
+        if base_payload is not None
+        else []
+    )
+    if history_input_path is not None:
+        try:
+            editions = parse_historical_editions(history_input_path, year)
+            historical_averages = attach_historical_data(countries, editions)
+            print(
+                f"Historical editions: {len(editions)} "
+                f"({editions[0]['label'] if editions else 'none'}–"
+                f"{editions[-1]['label'] if editions else 'none'})"
+            )
+        except Exception as exc:
+            sys.stderr.write(f"Warning: could not parse historical data: {exc}\n")
+            for country in countries:
+                country.setdefault("history", [])
+    else:
+        for country in countries:
+            country.setdefault("history", [])
+
     has_prev = countries_prev is not None
     print(f"Derived stats computed (year-over-year: {'yes' if has_prev else 'no'})")
 
@@ -453,8 +662,13 @@ def main() -> int:
         "year": year,
         "previousYear": previous_year,
         "sourceSheet": sheet_name,
-        "sourceFile": input_path.name,
+        "sourceFile": (
+            base_payload.get("sourceFile", input_path.name)
+            if base_payload is not None
+            else input_path.name
+        ),
         "averages": aggregates,
+        "historicalAverages": historical_averages,
         "countries": countries,
     }
     serialized = json.dumps(payload, ensure_ascii=False, indent=2)

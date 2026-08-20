@@ -10,8 +10,8 @@
  * so when the data file is updated for a new release the dashboard
  * automatically follows. No code changes required.
  */
-import { useMemo, useState, useCallback } from 'react';
-import { ControlPanel, CountryProfileChart } from './components';
+import { useMemo, useState, useCallback, useRef } from 'react';
+import { ControlPanel, CountryProfileChart, DesignComparison } from './components';
 import { useRoliData } from './hooks/useRoliData.js';
 import { resolveSelection, buildPdfEntries } from './utils/filters.js';
 import { downloadCountrySvg } from './utils/exportSvg.js';
@@ -95,6 +95,38 @@ const skeletonStyle = {
   borderRadius: 4,
 };
 
+const viewTabsStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  gap: 4,
+  padding: 4,
+  marginBottom: 28,
+  width: '100%',
+  maxWidth: 360,
+  backgroundColor: COLORS.surface,
+  border: `1px solid ${COLORS.border}`,
+  borderRadius: 999,
+};
+
+function viewTabStyle(active) {
+  return {
+    fontFamily: FONTS.sans,
+    fontSize: 13,
+    fontWeight: 600,
+    color: active ? COLORS.surface : COLORS.muted,
+    backgroundColor: active ? COLORS.ink : 'transparent',
+    border: 'none',
+    borderRadius: 999,
+    padding: '9px 16px',
+    minHeight: 44,
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    transition: 'background-color 150ms ease, color 150ms ease',
+  };
+}
+
+const VIEW_TABS = ['current', 'prototypes'];
+
 export default function App() {
   const { status, data, error } = useRoliData();
 
@@ -104,9 +136,12 @@ export default function App() {
   const [pdfProgress, setPdfProgress] = useState(null);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [exportError, setExportError] = useState(null);
+  const [activeView, setActiveView] = useState('current');
+  const viewTabRefs = useRef({});
 
   const countries = useMemo(() => data?.countries ?? [], [data?.countries]);
   const averages = data?.averages ?? null;
+  const historicalAverages = data?.historicalAverages ?? [];
   const year = data?.year ?? '—';
   const previousYear = data?.previousYear ?? null;
 
@@ -127,6 +162,22 @@ export default function App() {
 
   const handleSelectedChange = useCallback(code => {
     setSelectedCode(code);
+  }, []);
+
+  const handleViewTabKeyDown = useCallback((event, currentView) => {
+    const currentIndex = VIEW_TABS.indexOf(currentView);
+    let nextIndex = currentIndex;
+
+    if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % VIEW_TABS.length;
+    else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + VIEW_TABS.length) % VIEW_TABS.length;
+    else if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = VIEW_TABS.length - 1;
+    else return;
+
+    event.preventDefault();
+    const nextView = VIEW_TABS[nextIndex];
+    setActiveView(nextView);
+    viewTabRefs.current[nextView]?.focus();
   }, []);
 
   // Resolve the entity to display every render. Cheap — pure lookup or
@@ -213,7 +264,7 @@ export default function App() {
         </button>
       </header>
 
-      {exportError && (
+      {activeView === 'current' && exportError && (
         <div style={errorBannerStyle} role="alert">
           <span>{exportError}</span>
           <button
@@ -250,40 +301,85 @@ export default function App() {
         </div>
       )}
 
-      <ControlPanel
-        region={region}
-        onRegionChange={handleRegionChange}
-        selectedCode={selectedCode}
-        onSelectedChange={handleSelectedChange}
-        countries={countries}
-        visibleCountries={visibleCountries}
-        onDownloadSvg={handleDownloadSvg}
-        onDownloadPdf={handleDownloadPdf}
-        pdfBusy={pdfBusy}
-        pdfProgress={pdfProgress}
-      />
+      <div role="tablist" aria-label="Country profile views" style={viewTabsStyle}>
+        {VIEW_TABS.map(view => {
+          const isActive = activeView === view;
+          const label = view === 'current' ? 'Current design' : 'Design prototypes';
+          return (
+            <button
+              key={view}
+              ref={node => { viewTabRefs.current[view] = node; }}
+              id={`design-tab-${view}`}
+              className="view-tab"
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={`design-panel-${view}`}
+              tabIndex={isActive ? 0 : -1}
+              style={viewTabStyle(isActive)}
+              onClick={() => setActiveView(view)}
+              onKeyDown={event => handleViewTabKeyDown(event, view)}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
 
-      <CountryProfileChart
-        profile={profile}
-        title={title}
-        year={year}
-        previousYear={previousYear}
-      />
-
-      <footer
-        style={{
-          marginTop: 40,
-          fontFamily: FONTS.sans,
-          fontSize: 12,
-          color: COLORS.muted,
-          lineHeight: 1.6,
-        }}
-        role="contentinfo"
+      <section
+        id="design-panel-current"
+        role="tabpanel"
+        aria-labelledby="design-tab-current"
+        hidden={activeView !== 'current'}
       >
-        Source: World Justice Project, Rule of Law Index {year}. Scores are normalized
-        between 0 and 1, where higher scores indicate stronger adherence to rule of law.
-        Region average computed over {visibleCountries.length} {visibleCountries.length === 1 ? 'country' : 'countries'}.
-      </footer>
+        <ControlPanel
+          region={region}
+          onRegionChange={handleRegionChange}
+          selectedCode={selectedCode}
+          onSelectedChange={handleSelectedChange}
+          countries={countries}
+          visibleCountries={visibleCountries}
+          onDownloadSvg={handleDownloadSvg}
+          onDownloadPdf={handleDownloadPdf}
+          pdfBusy={pdfBusy}
+          pdfProgress={pdfProgress}
+        />
+
+        <CountryProfileChart
+          profile={profile}
+          title={title}
+          year={year}
+          previousYear={previousYear}
+        />
+
+        <footer
+          style={{
+            marginTop: 40,
+            fontFamily: FONTS.sans,
+            fontSize: 12,
+            color: COLORS.muted,
+            lineHeight: 1.6,
+          }}
+          role="contentinfo"
+        >
+          Source: World Justice Project, Rule of Law Index {year}. Scores are normalized
+          between 0 and 1, where higher scores indicate stronger adherence to rule of law.
+          Region average computed over {visibleCountries.length} {visibleCountries.length === 1 ? 'country' : 'countries'}.
+        </footer>
+      </section>
+
+      <section
+        id="design-panel-prototypes"
+        role="tabpanel"
+        aria-labelledby="design-tab-prototypes"
+        hidden={activeView !== 'prototypes'}
+      >
+        <DesignComparison
+          countries={countries}
+          historicalAverages={historicalAverages}
+          year={year}
+        />
+      </section>
     </div>
   );
 }
