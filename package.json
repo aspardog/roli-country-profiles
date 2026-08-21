@@ -5,6 +5,10 @@
   "type": "module",
   "packageManager": "npm@11.6.2",
   "description": "Country profile dashboard for the World Justice Project Rule of Law Index 2025",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/worldjusticeproject/roli-country-profiles.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
